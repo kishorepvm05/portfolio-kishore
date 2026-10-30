@@ -1,0 +1,83 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Contents 4 0 R /Resources << /Font << /F1 5 0 R >> >> >>
+endobj
+4 0 obj
+<< /Length 720 >>
+stream
+BT
+/F1 22 Tf
+50 730 Td
+(KISHORE T - Aspiring Data Analyst) Tj
+/F1 11 Tf
+0 -25 Td
+(Nagapattinam, Tamil Nadu, India | Open to Entry-Level Roles) Tj
+0 -20 Td
+(----------------------------------------------------------------------------------------------------------------) Tj
+/F1 14 Tf
+0 -25 Td
+(CAREER OBJECTIVE) Tj
+/F1 10 Tf
+0 -18 Td
+(Aspiring Data Analyst with a BBA foundation, currently pursuing MBA studies.) Tj
+0 -14 Td
+(Passionate about transforming raw data into meaningful business insights.) Tj
+/F1 14 Tf
+0 -25 Td
+(EDUCATION) Tj
+/F1 10 Tf
+0 -18 Td
+(Master of Business Administration (MBA) - Currently Pursuing) Tj
+0 -16 Td
+(Bachelor of Business Administration (BBA) - Sir Issac Newton Arts & Science College, 2026) Tj
+0 -14 Td
+(Graduation Percentage: 66.67%) Tj
+/F1 14 Tf
+0 -25 Td
+(TECHNICAL SKILLS) Tj
+/F1 10 Tf
+0 -18 Td
+(Microsoft Excel: Data cleaning, Formulas, Pivot Tables, Organization & Analysis) Tj
+0 -15 Td
+(Power BI: Interactive Dashboards, Power Query, DAX Fundamentals, Visualizations) Tj
+0 -15 Td
+(MySQL: Relational Queries, SELECT, Joins, Aggregations, Filtering & Sorting) Tj
+0 -15 Td
+(Python: Fundamentals, Variables, Conditionals, Loops, Data Structures) Tj
+/F1 14 Tf
+0 -25 Td
+(PRACTICAL PROJECTS) Tj
+/F1 10 Tf
+0 -18 Td
+(1. E-Commerce Database Analysis (MySQL) - Customer & Sales Queries) Tj
+0 -15 Td
+(2. Sales Performance & Trends Dashboard (Power BI) - Interactive KPI reporting) Tj
+0 -15 Td
+(3. Tabular Data Organization & Analysis (Excel) - Dynamic Pivot summary & models) Tj
+0 -15 Td
+(4. Exploratory Data Analysis (Python) - Data cleaning & problem solving) Tj
+ET
+endstream
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+xref
+0 6
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000115 00000 n 
+0000000228 00000 n 
+0000001001 00000 n 
+trailer
+<< /Size 6 /Root 1 0 R >>
+startxref
+1072
+%%EOF

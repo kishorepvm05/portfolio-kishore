@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a" />
+      <stop offset="50%" stop-color="#1e293b" />
+      <stop offset="100%" stop-color="#0b1120" />
+    </linearGradient>
+    <linearGradient id="glowGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8" />
+      <stop offset="50%" stop-color="#818cf8" />
+      <stop offset="100%" stop-color="#06b6d4" />
+    </linearGradient>
+    <linearGradient id="skinGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f6c89f" />
+      <stop offset="100%" stop-color="#e0a97c" />
+    </linearGradient>
+    <linearGradient id="shirtGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0284c7" />
+      <stop offset="100%" stop-color="#0369a1" />
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="12" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <!-- Background circle with subtle glow border -->
+  <circle cx="200" cy="200" r="190" fill="url(#bgGrad)" />
+  <circle cx="200" cy="200" r="190" fill="none" stroke="url(#glowGrad)" stroke-width="4" filter="url(#glow)" opacity="0.6" />
+  <circle cx="200" cy="200" r="190" fill="none" stroke="url(#glowGrad)" stroke-width="2" />
+
+  <!-- Data Grid & Dots Pattern in background -->
+  <g opacity="0.15" stroke="#38bdf8" stroke-width="1">
+    <line x1="80" y1="120" x2="320" y2="120" stroke-dasharray="4 4" />
+    <line x1="60" y1="180" x2="340" y2="180" stroke-dasharray="4 4" />
+    <line x1="80" y1="240" x2="320" y2="240" stroke-dasharray="4 4" />
+    <line x1="140" y1="60" x2="140" y2="340" stroke-dasharray="4 4" />
+    <line x1="260" y1="60" x2="260" y2="340" stroke-dasharray="4 4" />
+  </g>
+  <circle cx="140" cy="120" r="3" fill="#38bdf8" opacity="0.5" />
+  <circle cx="260" cy="180" r="3" fill="#818cf8" opacity="0.5" />
+  <circle cx="140" cy="240" r="3" fill="#06b6d4" opacity="0.5" />
+
+  <!-- Stylized friendly avatar portrait -->
+  <clipPath id="avatarClip">
+    <circle cx="200" cy="200" r="185" />
+  </clipPath>
+
+  <g clip-path="url(#avatarClip)">
+    <!-- Shoulders / Blazer -->
+    <path d="M 80 400 C 90 320, 140 280, 200 280 C 260 280, 310 320, 320 400 Z" fill="url(#shirtGrad)" />
+    <!-- Collar / Inner shirt -->
+    <path d="M 165 280 L 200 330 L 235 280 Z" fill="#ffffff" opacity="0.9" />
+    <path d="M 185 280 L 200 310 L 215 280 Z" fill="#0284c7" />
+
+    <!-- Neck -->
+    <rect x="180" y="220" width="40" height="70" rx="8" fill="url(#skinGrad)" />
+    <!-- Shadow under chin -->
+    <ellipse cx="200" cy="245" rx="24" ry="10" fill="#000000" opacity="0.15" />
+
+    <!-- Head / Face -->
+    <ellipse cx="200" cy="180" rx="60" ry="72" fill="url(#skinGrad)" />
+
+    <!-- Hair -->
+    <path d="M 136 170 C 134 115, 170 100, 200 100 C 235 100, 266 115, 264 170 C 260 140, 240 120, 200 120 C 160 120, 140 140, 136 170 Z" fill="#1e1b4b" />
+    <path d="M 138 160 C 138 135, 155 110, 200 110 C 245 110, 262 135, 262 160 C 255 130, 235 122, 200 122 C 165 122, 145 130, 138 160 Z" fill="#0f172a" />
+
+    <!-- Eyebrows -->
+    <path d="M 160 155 Q 175 150 188 156" stroke="#1e1b4b" stroke-width="4" stroke-linecap="round" fill="none" />
+    <path d="M 212 156 Q 225 150 240 155" stroke="#1e1b4b" stroke-width="4" stroke-linecap="round" fill="none" />
+
+    <!-- Eyes (friendly warm expression) -->
+    <circle cx="174" cy="172" r="6" fill="#1e1b4b" />
+    <circle cx="172" cy="170" r="2" fill="#ffffff" />
+    <circle cx="226" cy="172" r="6" fill="#1e1b4b" />
+    <circle cx="224" cy="170" r="2" fill="#ffffff" />
+
+    <!-- Glasses (smart modern data analyst frame) -->
+    <rect x="154" y="158" width="38" height="26" rx="8" fill="none" stroke="#38bdf8" stroke-width="2.5" opacity="0.85" />
+    <rect x="208" y="158" width="38" height="26" rx="8" fill="none" stroke="#38bdf8" stroke-width="2.5" opacity="0.85" />
+    <line x1="192" y1="168" x2="208" y2="168" stroke="#38bdf8" stroke-width="2.5" opacity="0.85" />
+    <line x1="154" y1="168" x2="140" y2="164" stroke="#38bdf8" stroke-width="2" opacity="0.7" />
+    <line x1="246" y1="168" x2="260" y2="164" stroke="#38bdf8" stroke-width="2" opacity="0.7" />
+
+    <!-- Nose -->
+    <path d="M 200 174 L 197 192 L 204 193" stroke="#d97706" stroke-width="2.5" stroke-linecap="round" fill="none" opacity="0.5" />
+
+    <!-- Smile (warm and confident) -->
+    <path d="M 182 210 Q 200 225 218 210" stroke="#b91c1c" stroke-width="3.5" stroke-linecap="round" fill="none" opacity="0.7" />
+    <!-- Cheeks glow -->
+    <circle cx="160" cy="198" r="10" fill="#f43f5e" opacity="0.15" />
+    <circle cx="240" cy="198" r="10" fill="#f43f5e" opacity="0.15" />
+  </g>
+
+  <!-- Floating badge indicator: Data Analyst -->
+  <g transform="translate(255, 290)">
+    <rect width="115" height="34" rx="17" fill="#0f172a" stroke="#38bdf8" stroke-width="1.5" />
+    <circle cx="18" cy="17" r="5" fill="#10b981" />
+    <text x="32" y="22" font-family="'Inter', sans-serif" font-size="12" font-weight="600" fill="#f1f5f9">Available</text>
+  </g>
+</svg>

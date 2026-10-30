@@ -1,65 +1,107 @@
 import React, { useEffect } from 'react';
-import { X } from 'lucide-react';
 
-export const Modal = ({ isOpen, onClose, title, subtitle, children, maxWidth = "720px" }) => {
+export const Modal = ({ project, onClose }) => {
+  // Close on Escape key
   useEffect(() => {
-    const handleKeyDown = (e) => {
-      if (e.key === 'Escape' && isOpen) {
-        onClose();
-      }
-    };
+    const onKey = (e) => { if (e.key === 'Escape') onClose(); };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [onClose]);
 
-    if (isOpen) {
-      document.body.style.overflow = 'hidden';
-      window.addEventListener('keydown', handleKeyDown);
-    } else {
-      document.body.style.overflow = 'unset';
-    }
-
-    return () => {
-      document.body.style.overflow = 'unset';
-      window.removeEventListener('keydown', handleKeyDown);
-    };
-  }, [isOpen, onClose]);
-
-  if (!isOpen) return null;
+  if (!project) return null;
 
   return (
-    <div 
-      className="modal-overlay" 
-      onClick={onClose}
+    <div
+      className="modal-backdrop"
+      onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}
       role="dialog"
       aria-modal="true"
-      aria-labelledby="modal-title"
+      aria-label={`Project details: ${project.title}`}
     >
-      <div 
-        className="modal-content"
-        style={{ maxWidth }}
-        onClick={(e) => e.stopPropagation()}
-      >
-        <div className="modal-header">
-          <div>
-            <h3 id="modal-title" style={{ fontSize: '1.25rem', fontWeight: 700, color: 'var(--color-text-primary)' }}>
-              {title}
-            </h3>
-            {subtitle && (
-              <p style={{ fontSize: '0.85rem', color: 'var(--color-text-secondary)', marginTop: '0.2rem' }}>
-                {subtitle}
-              </p>
-            )}
-          </div>
-          <button 
-            onClick={onClose} 
-            className="modal-close-btn"
-            aria-label="Close dialog"
-          >
-            <X size={20} />
-          </button>
+      <article className="modal">
+        {/* Close button */}
+        <button
+          className="modal__close"
+          onClick={onClose}
+          aria-label="Close modal"
+        >
+          ×
+        </button>
+
+        {/* Header */}
+        <header className="modal__header">
+          <div className="modal__status">{project.statusBadge}</div>
+          <h2 className="modal__title">{project.title}</h2>
+          <p className="modal__subtitle">{project.subtitle}</p>
+        </header>
+
+        {/* Body */}
+        <div className="modal__body">
+
+          {/* Overview */}
+          <section>
+            <div className="modal__section-label">Overview</div>
+            <p className="modal__overview">{project.overview}</p>
+          </section>
+
+          {/* Key Highlights */}
+          {project.highlights && project.highlights.length > 0 && (
+            <section>
+              <div className="modal__section-label">Key Highlights</div>
+              <div className="modal__highlights">
+                {project.highlights.map((h) => (
+                  <div className="modal__highlight" key={h.metric}>
+                    <div className="modal__highlight-metric">{h.metric}</div>
+                    <div className="modal__highlight-value">{h.value}</div>
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
+
+          {/* Tools */}
+          {project.tools && project.tools.length > 0 && (
+            <section>
+              <div className="modal__section-label">Tools & Technologies</div>
+              <div className="modal__tools">
+                {project.tools.map((t) => (
+                  <span className="modal__tool-tag" key={t}>{t}</span>
+                ))}
+              </div>
+            </section>
+          )}
+
+          {/* Learning Outcomes */}
+          {project.learningOutcomes && project.learningOutcomes.length > 0 && (
+            <section>
+              <div className="modal__section-label">Learning Outcomes</div>
+              <div className="modal__outcomes">
+                {project.learningOutcomes.map((o, i) => (
+                  <div className="modal__outcome" key={i}>{o}</div>
+                ))}
+              </div>
+            </section>
+          )}
+
+          {/* GitHub CTA */}
+          {project.githubUrl && (
+            <div>
+              <a
+                href={project.githubUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="modal__github-btn"
+              >
+                <span>↗</span>
+                {project.githubLabel || 'View on GitHub'}
+              </a>
+            </div>
+          )}
+
         </div>
-        <div className="modal-body">
-          {children}
-        </div>
-      </div>
+      </article>
     </div>
   );
 };
+
+export default Modal;

@@ -48,28 +48,28 @@ export const Navbar = ({ isDark, onToggleTheme, onOpenCommandPalette }) => {
 
   return (
     <>
-      <header className="nav-editorial-fixed">
-        <div className="nav-editorial-inner">
+      <header className="nav-agency-fixed">
+        <div className="nav-agency-inner">
           
-          {/* Left Brand: Kishore */}
+          {/* Brand Left */}
           <a
             href="#hero"
-            className="nav-brand-group"
+            className="nav-brand-agency"
             onClick={(e) => { e.preventDefault(); scrollTo('#hero'); }}
-            aria-label="Kishore — Return to top"
+            aria-label="Kishore — Back to top"
           >
-            <span className="nav-brand-name">Kishore</span>
-            <span className="nav-brand-dot">•</span>
+            <span className="nav-brand-title">Kishore</span>
+            <span className="nav-brand-orange-dot" />
           </a>
 
-          {/* Centered Editorial Navigation Links */}
-          <nav className="nav-links-centered" aria-label="Editorial Main Navigation">
+          {/* Desktop Center Links */}
+          <nav className="nav-menu-desktop" aria-label="Main Navigation">
             {NAV_ITEMS.map((item) => {
               const isActive = activeSection === item.href.substring(1);
               return (
                 <button
                   key={item.href}
-                  className={`nav-editorial-link ${isActive ? 'active' : ''}`}
+                  className={`nav-link-agency ${isActive ? 'active' : ''}`}
                   onClick={() => scrollTo(item.href)}
                 >
                   {item.label}
@@ -78,30 +78,29 @@ export const Navbar = ({ isDark, onToggleTheme, onOpenCommandPalette }) => {
             })}
           </nav>
 
-          {/* Right Action: Pill Button + Quick Command + Theme */}
-          <div className="nav-actions-right">
+          {/* Actions Right */}
+          <div className="nav-actions-desktop">
             <button
               onClick={onOpenCommandPalette}
-              className="editorial-tag"
+              className="badge-agency"
               title="Open Command Palette (Ctrl + K)"
-              style={{ cursor: 'pointer', padding: '6px 12px' }}
+              style={{ cursor: 'pointer', padding: '6px 14px' }}
             >
-              <Search size={13} style={{ marginRight: 4 }} />
+              <Search size={13} style={{ marginRight: 4, color: 'var(--accent-orange)' }} />
               <span>Menu</span>
             </button>
 
             <ThemeToggle isDark={isDark} onToggle={onToggleTheme} />
 
-            {/* Premium Black Pill CTA Button (As seen on top-right of reference) */}
             <button
               onClick={() => scrollTo('#contact')}
-              className="btn-editorial-pill"
+              className="btn-charcoal-pill"
               style={{ padding: '10px 22px', fontSize: '0.84rem' }}
             >
               <span>Get in Touch</span>
             </button>
 
-            {/* Mobile Menu Toggle Button */}
+            {/* Mobile menu trigger */}
             <button
               className="theme-toggle-btn"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -116,7 +115,7 @@ export const Navbar = ({ isDark, onToggleTheme, onOpenCommandPalette }) => {
         </div>
       </header>
 
-      {/* Mobile Drawer */}
+      {/* Mobile Menu Drawer */}
       <AnimatePresence>
         {mobileMenuOpen && (
           <motion.div
@@ -125,11 +124,11 @@ export const Navbar = ({ isDark, onToggleTheme, onOpenCommandPalette }) => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.25 }}
-            style={{ background: 'var(--bg-primary)' }}
+            style={{ background: 'var(--bg-ivory)' }}
           >
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
-              <span className="editorial-tag">Navigation</span>
-              <button onClick={() => setMobileMenuOpen(false)} style={{ color: 'var(--text-primary)', cursor: 'pointer' }}>
+              <span className="badge-agency">Navigation</span>
+              <button onClick={() => setMobileMenuOpen(false)} style={{ color: 'var(--text-charcoal)', cursor: 'pointer' }}>
                 <X size={24} />
               </button>
             </div>
@@ -138,7 +137,7 @@ export const Navbar = ({ isDark, onToggleTheme, onOpenCommandPalette }) => {
               <button
                 key={item.href}
                 className="mobile-nav-link"
-                style={{ color: 'var(--text-primary)', fontFamily: 'var(--font-serif)' }}
+                style={{ color: 'var(--text-charcoal)', fontFamily: 'var(--font-serif)' }}
                 onClick={() => scrollTo(item.href)}
               >
                 {item.label}
@@ -151,7 +150,7 @@ export const Navbar = ({ isDark, onToggleTheme, onOpenCommandPalette }) => {
                   setMobileMenuOpen(false);
                   scrollTo('#contact');
                 }}
-                className="btn-editorial-pill"
+                className="btn-charcoal-pill"
                 style={{ width: '100%' }}
               >
                 Get in Touch

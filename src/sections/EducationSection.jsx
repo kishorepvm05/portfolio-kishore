@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { CheckCircle, Award } from 'lucide-react';
+import { CheckCircle } from 'lucide-react';
 import { educationData } from '../data/education';
 
 export const EducationSection = () => {
@@ -9,37 +9,37 @@ export const EducationSection = () => {
       <div className="container">
         
         {/* Section Header */}
-        <div className="section-header">
-          <span className="section-number">04 / Journey</span>
-          <h2 className="section-title">
-            Academic <span className="serif-italic">Foundation</span>
+        <div className="section-header-agency">
+          <span className="section-number-tag">04 / Academic Pedigree</span>
+          <h2 className="section-title-agency">
+            Education &amp; <span className="serif-italic">Academic Baseline</span>
           </h2>
-          <p className="section-subtitle">
-            Rigorous undergraduate business coursework coupled with active postgraduate management and analytics studies.
+          <p className="section-lead-agency">
+            Undergraduate business administration foundation paired with active postgraduate management studies.
           </p>
         </div>
 
         {/* Minimal Editorial Cards */}
-        <div className="education-editorial-container">
+        <div className="education-agency-list">
           {educationData.map((edu, index) => (
             <motion.div
               key={edu.id}
-              className="education-editorial-card"
+              className="education-agency-card"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-40px' }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
             >
-              <div className="education-header-line">
-                <h3 className="education-degree-title">
+              <div className="education-top-line">
+                <h3 className="education-title-serif">
                   {edu.degree}
                 </h3>
-                <span className="editorial-tag">
+                <span className="badge-agency">
                   {edu.badge}
                 </span>
               </div>
 
-              <div className="education-institution-text">
+              <div className="education-sub-line">
                 {edu.institution} &bull; {edu.location}
               </div>
 
@@ -50,7 +50,7 @@ export const EducationSection = () => {
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '8px' }}>
                 {edu.keyFocusAreas.map((area, i) => (
                   <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.85rem', color: 'var(--text-muted)' }}>
-                    <CheckCircle size={14} style={{ color: 'var(--accent-gold)', flexShrink: 0 }} />
+                    <CheckCircle size={14} style={{ color: 'var(--accent-orange)', flexShrink: 0 }} />
                     <span>{area}</span>
                   </div>
                 ))}

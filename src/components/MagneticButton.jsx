@@ -47,3 +47,4 @@ export const MagneticButton = ({ children, className = '', style = {}, onClick, 
 };
 
 export default MagneticButton;
+

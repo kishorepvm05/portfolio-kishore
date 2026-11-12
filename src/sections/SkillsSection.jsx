@@ -10,38 +10,18 @@ export const SkillsSection = () => {
       <div className="container">
         
         {/* Section Header */}
-        <div className="section-header">
-          <motion.span 
-            className="section-number"
-            initial={{ opacity: 0, y: 15 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-          >
-            02 / Competencies
-          </motion.span>
-          <motion.h2 
-            className="section-title"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-          >
-            Analytical <span className="serif-italic">Tooling</span> &amp; Capabilities
-          </motion.h2>
-          <motion.p 
-            className="section-subtitle"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-          >
-            Core analytical tools and technical competencies developed through rigorous project-based execution.
-          </motion.p>
+        <div className="section-header-agency">
+          <span className="section-number-tag">02 / Technical Domains</span>
+          <h2 className="section-title-agency">
+            Analytical <span className="serif-italic">Tooling</span> &amp; Precision
+          </h2>
+          <p className="section-lead-agency">
+            Structured querying, automated data staging, and visual intelligence platforms mastered through continuous project practice.
+          </p>
         </div>
 
-        {/* 4 Editorial Skill Cards with Interactive 3D Tilt */}
-        <div className="skills-editorial-grid">
+        {/* 4 Interactive Skill Cards Grid */}
+        <div className="skills-agency-grid">
           {skillsData.map((skill, index) => (
             <motion.div
               key={skill.id}
@@ -50,22 +30,22 @@ export const SkillsSection = () => {
               viewport={{ once: true, margin: '-40px' }}
               transition={{ duration: 0.55, delay: index * 0.1 }}
             >
-              <TiltCard className="skill-editorial-card">
-                <div className="skill-icon-wrap">
-                  <TechIcon name={skill.name} size={28} />
+              <TiltCard className="skill-agency-card">
+                <div className="skill-icon-bubble">
+                  <TechIcon name={skill.name} size={30} />
                 </div>
 
-                <h3 className="skill-title-name">
+                <h3 className="skill-card-name">
                   {skill.name}
                 </h3>
 
-                <p className="skill-desc-text">
+                <p className="skill-card-summary">
                   {skill.shortDescription}
                 </p>
 
-                <div className="skill-pills-row">
+                <div className="skill-tags-flex">
                   {skill.topics.slice(0, 3).map((topic, i) => (
-                    <span key={i} className="skill-sub-tag">
+                    <span key={i} className="skill-micro-badge">
                       {topic}
                     </span>
                   ))}

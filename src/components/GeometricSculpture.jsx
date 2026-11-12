@@ -143,3 +143,4 @@ export const GeometricSculpture = () => {
 };
 
 export default GeometricSculpture;
+

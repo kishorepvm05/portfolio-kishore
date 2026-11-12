@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { motion, useScroll, useSpring } from 'framer-motion';
+import { motion, AnimatePresence, useScroll, useSpring } from 'framer-motion';
 import Lenis from 'lenis';
 import { Navbar } from './components/Navbar';
 import { BackToTop } from './components/BackToTop';
 import { Modal } from './components/Modal';
 import { CommandPalette } from './components/CommandPalette';
 import { AIAssistant } from './components/AIAssistant';
+import { CustomCursor } from './components/CustomCursor';
+import { LoadingScreen } from './components/LoadingScreen';
 import { HeroSection } from './sections/HeroSection';
 import { AboutSection } from './sections/AboutSection';
 import { SkillsSection } from './sections/SkillsSection';
@@ -14,20 +16,21 @@ import { EducationSection } from './sections/EducationSection';
 import { ContactSection } from './sections/ContactSection';
 
 export const App = () => {
+  const [isLoading, setIsLoading] = useState(true);
   const [activeModal, setActiveModal] = useState(null);
   const [commandPaletteOpen, setCommandPaletteOpen] = useState(false);
   const [isDark, setIsDark] = useState(() => {
     const saved = localStorage.getItem('theme');
-    return saved ? saved === 'dark' : true;
+    return saved ? saved === 'dark' : false; // Default to warm editorial beige
   });
 
   // Smooth Lenis Scroll setup
   useEffect(() => {
     const lenis = new Lenis({
-      duration: 1.2,
+      duration: 1.25,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       smoothWheel: true,
-      touchMultiplier: 1.5
+      touchMultiplier: 1.2
     });
 
     function raf(time) {
@@ -85,25 +88,40 @@ export const App = () => {
 
   return (
     <div className="portfolio-app-root" style={{ position: 'relative' }}>
-      {/* Scroll Progress Line */}
-      <motion.div className="scroll-progress-line" style={{ scaleX }} />
+      {/* Cinematic Custom Loading Screen */}
+      <AnimatePresence>
+        {isLoading && (
+          <LoadingScreen onComplete={() => setIsLoading(false)} />
+        )}
+      </AnimatePresence>
 
-      {/* Cyber-Futuristic Ambient Background Lighting Orbs & Grid */}
-      <div className="ambient-background" aria-hidden="true">
-        <div className="ambient-grid" />
-        <div className="ambient-orb ambient-orb-1" />
-        <div className="ambient-orb ambient-orb-2" />
-        <div className="ambient-orb ambient-orb-3" />
-      </div>
+      {/* Experimental Luxury Custom Cursor (Desktop Pointer Devices) */}
+      <CustomCursor />
 
-      {/* Floating Glassmorphism Navbar with Command Trigger & Theme Switch */}
+      {/* Top Precision Scroll Progress Indicator */}
+      <motion.div 
+        className="scroll-progress-line" 
+        style={{ 
+          scaleX,
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          height: '3px',
+          background: '#F97316',
+          transformOrigin: '0%',
+          zIndex: 10001
+        }} 
+      />
+
+      {/* Minimal Editorial Top Navigation */}
       <Navbar 
         isDark={isDark} 
         onToggleTheme={toggleTheme} 
         onOpenCommandPalette={() => setCommandPaletteOpen(true)}
       />
 
-      {/* Main Content Sections */}
+      {/* Main Sections */}
       <main style={{ position: 'relative', zIndex: 2 }}>
         <HeroSection />
         <AboutSection />
@@ -113,13 +131,13 @@ export const App = () => {
         <ContactSection />
       </main>
 
-      {/* Interactive AI Portfolio Assistant */}
+      {/* Interactive AI Assistant */}
       <AIAssistant />
 
-      {/* Floating Back to Top Control */}
+      {/* Floating Return To Top */}
       <BackToTop />
 
-      {/* Project Case Study Deep-Dive Modal */}
+      {/* Case Study Modal */}
       {activeModal && (
         <Modal project={activeModal} onClose={handleCloseModal} />
       )}

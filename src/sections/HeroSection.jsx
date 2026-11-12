@@ -1,10 +1,36 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ArrowRight, Download, Sparkles, Terminal, Activity, Layers } from 'lucide-react';
+import { ArrowRight, Download, Sparkles } from 'lucide-react';
 import { personalData } from '../data/personal';
 import { projectsData } from '../data/projects';
 import { skillsData } from '../data/skills';
 import { GeometricSculpture } from '../components/GeometricSculpture';
+import { MagneticButton } from '../components/MagneticButton';
+import { TiltCard } from '../components/TiltCard';
+
+// Word & Character stagger animation variants
+const sentenceVariants = {
+  hidden: { opacity: 1 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.05,
+      delayChildren: 0.2
+    }
+  }
+};
+
+const charVariants = {
+  hidden: { opacity: 0, y: 40 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.65,
+      ease: [0.16, 1, 0.3, 1]
+    }
+  }
+};
 
 export const HeroSection = () => {
   const scrollTo = (href) => {
@@ -16,10 +42,12 @@ export const HeroSection = () => {
     }
   };
 
+  const nameLetters = "KISHORE".split("");
+
   return (
     <section id="hero" className="hero-editorial-section" aria-label="Hero — Introduction">
       
-      {/* Subtle Architectural Grid Lines & Background Accents */}
+      {/* Subtle Architectural Grid Lines */}
       <div className="hero-backdrop-lines" aria-hidden="true">
         <div className="backdrop-line-v backdrop-line-v-1" />
         <div className="backdrop-line-v backdrop-line-v-2" />
@@ -28,73 +56,88 @@ export const HeroSection = () => {
 
       <div className="container" style={{ position: 'relative', zIndex: 3 }}>
         
-        {/* Top Massive Oversized Editorial Headline: KISHORE */}
+        {/* Top Massive Oversized Editorial Headline with Character Stagger */}
         <motion.div 
           className="hero-marquee-name-row"
-          initial={{ opacity: 0, y: -25 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          initial="hidden"
+          animate="visible"
+          variants={sentenceVariants}
         >
-          <div className="hero-oversized-name">
-            KISHORE<span className="orange-accent-dot">.</span>
+          <div className="hero-oversized-name" style={{ display: 'flex', overflow: 'hidden' }}>
+            {nameLetters.map((char, index) => (
+              <motion.span key={index} variants={charVariants} style={{ display: 'inline-block' }}>
+                {char}
+              </motion.span>
+            ))}
+            <motion.span variants={charVariants} className="orange-accent-dot">
+              .
+            </motion.span>
           </div>
-          <div className="hero-archive-badge">
+
+          <motion.div 
+            className="hero-archive-badge"
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.7, delay: 0.5 }}
+          >
             <span className="orange-status-dot" />
             <span>PORTFOLIO / 2026 ARCHIVE</span>
-          </div>
+          </motion.div>
         </motion.div>
 
-        {/* 3-Column Balanced Creative Grid */}
+        {/* 3-Column Creative Grid */}
         <div className="hero-editorial-grid">
           
-          {/* 1. LEFT CONTENT: Narrative, Philosophy & Actions */}
+          {/* 1. LEFT CONTENT: Narrative, Badges & Magnetic CTA */}
           <motion.div 
             className="hero-left-content"
             initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.3 }}
           >
-            {/* Professional Role Badge */}
             <div className="hero-role-badge">
               <span className="editorial-tag-dot" />
               <span>{personalData.role}</span>
             </div>
 
-            {/* Editorial Title */}
             <h1 className="hero-editorial-title">
               Crafting clarity from <em>complex</em> datasets.
             </h1>
 
-            {/* Narrative Description */}
             <p className="hero-editorial-bio">
               Bridging strategic business administration with quantitative analytics. 
               Transforming raw transactional records into interactive Power BI dashboards, 
               structured relational SQL queries, and predictive decision frameworks.
             </p>
 
-            {/* Action Buttons */}
+            {/* Magnetic CTA Buttons */}
             <div className="hero-editorial-actions">
-              <button 
-                onClick={() => scrollTo('#projects')}
-                className="btn-editorial-pill"
-                aria-label="View My Projects"
-              >
-                <span>Explore Projects</span>
-                <ArrowRight size={16} />
-              </button>
+              <MagneticButton>
+                <div 
+                  onClick={() => scrollTo('#projects')}
+                  className="btn-editorial-pill"
+                  role="button"
+                  tabIndex={0}
+                >
+                  <span>Explore Projects</span>
+                  <ArrowRight size={16} />
+                </div>
+              </MagneticButton>
 
-              <a 
-                href={personalData.resume.downloadUrl}
-                download={personalData.resume.fileName}
-                className="btn-editorial-outline"
-                aria-label="Download Resume"
-              >
-                <Download size={15} />
-                <span>Resume</span>
-              </a>
+              <MagneticButton>
+                <a 
+                  href={personalData.resume.downloadUrl}
+                  download={personalData.resume.fileName}
+                  className="btn-editorial-outline"
+                  aria-label="Download Resume"
+                >
+                  <Download size={15} />
+                  <span>Resume</span>
+                </a>
+              </MagneticButton>
             </div>
 
-            {/* Subtle Tech Ticker Line */}
+            {/* Tech Ticker */}
             <div className="hero-tech-ticker">
               <span className="ticker-label">STACK:</span>
               <span className="ticker-item">Microsoft Excel</span>
@@ -107,21 +150,18 @@ export const HeroSection = () => {
             </div>
           </motion.div>
 
-          {/* 2. CENTER CONTENT: Animated Abstract 3D Geometric Sculpture */}
+          {/* 2. CENTER CONTENT: Kinetic 3D Geometric Sculpture Stage */}
           <motion.div 
             className="hero-center-sculpture-col"
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1.0, ease: [0.16, 1, 0.3, 1], delay: 0.15 }}
+            transition={{ duration: 1.0, ease: [0.16, 1, 0.3, 1], delay: 0.4 }}
           >
             <div className="sculpture-stage-box">
-              {/* Subtle Warm Halo Glow */}
               <div className="sculpture-warm-halo" />
 
-              {/* Interactive Three.js Geometric Sculpture */}
               <GeometricSculpture />
 
-              {/* Micro Tech Label at bottom of sculpture */}
               <div className="sculpture-caption">
                 <span className="sculpture-axis">FIG 01 &bull; KINETIC SCULPTURE</span>
                 <span className="sculpture-desc">ROTATIONAL GEOMETRY</span>
@@ -129,15 +169,14 @@ export const HeroSection = () => {
             </div>
           </motion.div>
 
-          {/* 3. RIGHT CONTENT: Real Portfolio Metrics & Statistics */}
+          {/* 3. RIGHT CONTENT: 3D Interactive Tilt Metric Cards */}
           <motion.div 
             className="hero-right-metrics"
             initial={{ opacity: 0, x: 30 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.25 }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.5 }}
           >
-            {/* Metric 1: Core Technologies */}
-            <div className="editorial-metric-card">
+            <TiltCard className="editorial-metric-card">
               <div className="metric-header-row">
                 <div className="metric-number-large">04</div>
                 <div className="metric-tag-pill">DOMAINS</div>
@@ -146,10 +185,9 @@ export const HeroSection = () => {
               <div className="metric-detail-text">
                 Advanced Excel, Power BI DAX, MySQL queries &amp; Python scripts.
               </div>
-            </div>
+            </TiltCard>
 
-            {/* Metric 2: Projects Completed */}
-            <div className="editorial-metric-card">
+            <TiltCard className="editorial-metric-card">
               <div className="metric-header-row">
                 <div className="metric-number-large">0{projectsData.length}</div>
                 <div className="metric-tag-pill">MODELS</div>
@@ -158,10 +196,9 @@ export const HeroSection = () => {
               <div className="metric-detail-text">
                 Retail e-commerce joins, executive BI dashboards, and summary models.
               </div>
-            </div>
+            </TiltCard>
 
-            {/* Metric 3: Academic Foundation */}
-            <div className="editorial-metric-card">
+            <TiltCard className="editorial-metric-card">
               <div className="metric-header-row">
                 <div className="metric-number-large">2026</div>
                 <div className="metric-tag-pill">ACADEMIC</div>
@@ -170,7 +207,7 @@ export const HeroSection = () => {
               <div className="metric-detail-text">
                 BBA Graduate (66.67%) &bull; Sir Issac Newton Arts &amp; Science &bull; Pursuing MBA.
               </div>
-            </div>
+            </TiltCard>
           </motion.div>
 
         </div>

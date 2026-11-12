@@ -1,8 +1,9 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ArrowUpRight, Terminal } from 'lucide-react';
+import { ArrowUpRight } from 'lucide-react';
 import { projectsData } from '../data/projects';
 import { TechIcon } from '../components/TechIcon';
+import { TiltCard } from '../components/TiltCard';
 
 export const ProjectsSection = ({ onOpenModal }) => {
   return (
@@ -11,28 +12,49 @@ export const ProjectsSection = ({ onOpenModal }) => {
         
         {/* Section Header */}
         <div className="section-header">
-          <span className="section-number">03 / Portfolio</span>
-          <h2 className="section-title">
+          <motion.span 
+            className="section-number"
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+          >
+            03 / Portfolio
+          </motion.span>
+          <motion.h2 
+            className="section-title"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+          >
             Featured <span className="serif-italic">Case Studies</span>
-          </h2>
-          <p className="section-subtitle">
+          </motion.h2>
+          <motion.p 
+            className="section-subtitle"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+          >
             Hands-on database querying, business intelligence dashboard construction, and exploratory data scripts.
-          </p>
+          </motion.p>
         </div>
 
-        {/* Editorial Project Rows */}
+        {/* Editorial Project Rows with 3D Tilt & Zoom */}
         <div className="projects-editorial-list">
           {projectsData.map((project, index) => (
-            <motion.article
+            <TiltCard
               key={project.id}
               className="project-item-editorial"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-50px' }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
+              onClick={() => onOpenModal(project)}
             >
-              {/* Left: Graphic Code/Visual Simulation */}
-              <div className="project-preview-editorial">
+              {/* Left: Graphic Code/Visual Simulation with Hover Image Zoom */}
+              <motion.div 
+                className="project-preview-editorial"
+                whileHover={{ scale: 1.02 }}
+                transition={{ duration: 0.3 }}
+              >
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                   <TechIcon name={project.technology} size={28} />
                   <span style={{ fontSize: '0.72rem', fontFamily: 'var(--font-mono)', color: 'rgba(255,255,255,0.5)', textTransform: 'uppercase' }}>
@@ -51,9 +73,9 @@ export const ProjectsSection = ({ onOpenModal }) => {
 
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '0.75rem', borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '10px' }}>
                   <span style={{ color: 'rgba(255,255,255,0.6)' }}>Verified Project Model</span>
-                  <span style={{ color: '#C2A374' }}>View Case Details &rarr;</span>
+                  <span style={{ color: '#F97316', fontWeight: 600 }}>Inspect Case Study &rarr;</span>
                 </div>
-              </div>
+              </motion.div>
 
               {/* Right: Narrative & Key Outcomes */}
               <div className="project-info-editorial">
@@ -76,16 +98,19 @@ export const ProjectsSection = ({ onOpenModal }) => {
 
                 <div style={{ marginTop: 'auto', paddingTop: '16px' }}>
                   <button
-                    onClick={() => onOpenModal(project)}
                     className="btn-editorial-pill"
                     style={{ padding: '10px 20px', fontSize: '0.82rem' }}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      onOpenModal(project);
+                    }}
                   >
                     <span>Read Full Case Study</span>
                     <ArrowUpRight size={15} />
                   </button>
                 </div>
               </div>
-            </motion.article>
+            </TiltCard>
           ))}
         </div>
 

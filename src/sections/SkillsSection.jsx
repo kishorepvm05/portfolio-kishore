@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { skillsData } from '../data/skills';
 import { TechIcon } from '../components/TechIcon';
+import { TiltCard } from '../components/TiltCard';
 
 export const SkillsSection = () => {
   return (
@@ -10,45 +11,66 @@ export const SkillsSection = () => {
         
         {/* Section Header */}
         <div className="section-header">
-          <span className="section-number">02 / Competencies</span>
-          <h2 className="section-title">
+          <motion.span 
+            className="section-number"
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+          >
+            02 / Competencies
+          </motion.span>
+          <motion.h2 
+            className="section-title"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+          >
             Analytical <span className="serif-italic">Tooling</span> &amp; Capabilities
-          </h2>
-          <p className="section-subtitle">
+          </motion.h2>
+          <motion.p 
+            className="section-subtitle"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+          >
             Core analytical tools and technical competencies developed through rigorous project-based execution.
-          </p>
+          </motion.p>
         </div>
 
-        {/* 4 Editorial Skill Cards */}
+        {/* 4 Editorial Skill Cards with Interactive 3D Tilt */}
         <div className="skills-editorial-grid">
           {skillsData.map((skill, index) => (
             <motion.div
               key={skill.id}
-              className="skill-editorial-card"
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 25 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-40px' }}
-              transition={{ duration: 0.5, delay: index * 0.08 }}
+              transition={{ duration: 0.55, delay: index * 0.1 }}
             >
-              <div className="skill-icon-wrap">
-                <TechIcon name={skill.name} size={28} />
-              </div>
+              <TiltCard className="skill-editorial-card">
+                <div className="skill-icon-wrap">
+                  <TechIcon name={skill.name} size={28} />
+                </div>
 
-              <h3 className="skill-title-name">
-                {skill.name}
-              </h3>
+                <h3 className="skill-title-name">
+                  {skill.name}
+                </h3>
 
-              <p className="skill-desc-text">
-                {skill.shortDescription}
-              </p>
+                <p className="skill-desc-text">
+                  {skill.shortDescription}
+                </p>
 
-              <div className="skill-pills-row">
-                {skill.topics.slice(0, 3).map((topic, i) => (
-                  <span key={i} className="skill-sub-tag">
-                    {topic}
-                  </span>
-                ))}
-              </div>
+                <div className="skill-pills-row">
+                  {skill.topics.slice(0, 3).map((topic, i) => (
+                    <span key={i} className="skill-sub-tag">
+                      {topic}
+                    </span>
+                  ))}
+                </div>
+              </TiltCard>
             </motion.div>
           ))}
         </div>

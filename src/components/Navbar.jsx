@@ -1,104 +1,162 @@
 import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Menu, X, ArrowUpRight } from 'lucide-react';
+import { ThemeToggle } from './ThemeToggle';
+import { personalData } from '../data/personal';
 
-const NAV_LINKS = [
+const NAV_ITEMS = [
+  { label: 'Home', href: '#hero' },
   { label: 'About', href: '#about' },
-  { label: 'Projects', href: '#projects' },
   { label: 'Skills', href: '#skills' },
-  { label: 'Journey', href: '#journey' },
+  { label: 'Projects', href: '#projects' },
+  { label: 'Education', href: '#education' },
   { label: 'Contact', href: '#contact' },
 ];
 
-export const Navbar = () => {
-  const [scrolled, setScrolled] = useState(false);
-  const [mobileOpen, setMobileOpen] = useState(false);
+export const Navbar = ({ isDark, onToggleTheme }) => {
+  const [activeSection, setActiveSection] = useState('hero');
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
+    const handleScroll = () => {
+      const scrollPos = window.scrollY + 200;
+      const sections = NAV_ITEMS.map(item => item.href.substring(1));
+
+      for (let i = sections.length - 1; i >= 0; i--) {
+        const el = document.getElementById(sections[i]);
+        if (el && el.offsetTop <= scrollPos) {
+          setActiveSection(sections[i]);
+          break;
+        }
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Lock scroll when mobile menu is open
-  useEffect(() => {
-    document.body.style.overflow = mobileOpen ? 'hidden' : '';
-    return () => { document.body.style.overflow = ''; };
-  }, [mobileOpen]);
-
   const scrollTo = (href) => {
-    setMobileOpen(false);
-    const el = document.querySelector(href);
-    if (el) {
-      const offset = 80;
-      const top = el.getBoundingClientRect().top + window.scrollY - offset;
-      window.scrollTo({ top, behavior: 'smooth' });
+    setMobileMenuOpen(false);
+    const target = document.querySelector(href);
+    if (target) {
+      const topOffset = href === '#hero' ? 0 : target.offsetTop - 80;
+      window.scrollTo({
+        top: topOffset,
+        behavior: 'smooth'
+      });
     }
   };
 
   return (
     <>
-      <header className={`navbar${scrolled ? ' scrolled' : ''}`} role="banner">
-        <div className="navbar__inner">
-          {/* Logo */}
+      <header className="navbar-fixed">
+        <motion.div 
+          className="navbar-container"
+          initial={{ y: -60, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+        >
+          {/* Brand Logo */}
           <a
-            className="navbar__logo"
             href="#hero"
-            aria-label="Kishore T — Back to top"
+            className="navbar-brand"
             onClick={(e) => { e.preventDefault(); scrollTo('#hero'); }}
+            aria-label="Kishore T — Return to top"
           >
-            <div className="navbar__monogram" aria-hidden="true">KT</div>
-            <span className="navbar__name">Kishore T</span>
+            <div className="navbar-logo-badge">KT</div>
+            <span className="navbar-brand-name">
+              Kishore<span className="cyan-gradient-text">.dev</span>
+            </span>
           </a>
 
-          {/* Desktop nav */}
-          <nav className="navbar__nav" aria-label="Primary navigation">
-            {NAV_LINKS.map((link) => (
-              <button
-                key={link.href}
-                className="navbar__link"
-                onClick={() => scrollTo(link.href)}
-                aria-label={`Navigate to ${link.label}`}
-              >
-                {link.label}
-              </button>
-            ))}
+          {/* Desktop Navigation Links with animated active pill */}
+          <nav className="navbar-links" aria-label="Main Navigation">
+            {NAV_ITEMS.map((item) => {
+              const isActive = activeSection === item.href.substring(1);
+              return (
+                <button
+                  key={item.href}
+                  className={`nav-link-btn ${isActive ? 'active' : ''}`}
+                  onClick={() => scrollTo(item.href)}
+                >
+                  {isActive && (
+                    <motion.div
+                      layoutId="activeNavIndicator"
+                      className="nav-indicator-pill"
+                      transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                    />
+                  )}
+                  {item.label}
+                </button>
+              );
+            })}
           </nav>
 
-          {/* Status pill */}
-          <div className="navbar__status" aria-label="Availability status: Available">
-            <span className="navbar__status-dot" aria-hidden="true" />
-            Available
-          </div>
+          {/* Actions & Status Indicator */}
+          <div className="navbar-actions">
+            <div className="availability-pill" title="Open to Data Analyst & BI Roles">
+              <span className="availability-dot" />
+              <span>Available for Work</span>
+            </div>
 
-          {/* Mobile toggle */}
-          <button
-            className={`navbar__toggle${mobileOpen ? ' open' : ''}`}
-            onClick={() => setMobileOpen((v) => !v)}
-            aria-label={mobileOpen ? 'Close navigation' : 'Open navigation'}
-            aria-expanded={mobileOpen}
-          >
-            <span />
-            <span />
-            <span />
-          </button>
-        </div>
+            <ThemeToggle isDark={isDark} onToggle={onToggleTheme} />
+
+            <button
+              className="mobile-menu-toggle"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
+            >
+              {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
+            </button>
+          </div>
+        </motion.div>
       </header>
 
-      {/* Mobile overlay */}
-      <nav
-        className={`navbar__mobile${mobileOpen ? ' open' : ''}`}
-        aria-label="Mobile navigation"
-        aria-hidden={!mobileOpen}
-      >
-        {NAV_LINKS.map((link) => (
-          <button
-            key={link.href}
-            className="navbar__mobile-link"
-            onClick={() => scrollTo(link.href)}
+      {/* Responsive Mobile Drawer */}
+      <AnimatePresence>
+        {mobileMenuOpen && (
+          <motion.nav
+            className="mobile-nav-overlay"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.25 }}
           >
-            {link.label}
-          </button>
-        ))}
-      </nav>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
+              <span className="badge-tag">Navigation</span>
+              <button onClick={() => setMobileMenuOpen(false)} style={{ color: 'var(--text-secondary)' }}>
+                <X size={24} />
+              </button>
+            </div>
+
+            {NAV_ITEMS.map((item) => {
+              const isActive = activeSection === item.href.substring(1);
+              return (
+                <button
+                  key={item.href}
+                  className={`mobile-nav-link ${isActive ? 'active' : ''}`}
+                  onClick={() => scrollTo(item.href)}
+                >
+                  {item.label}
+                </button>
+              );
+            })}
+
+            <div style={{ marginTop: 'auto', paddingTop: 20, borderTop: '1px solid var(--border-subtle)' }}>
+              <a
+                href={personalData.contact.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-futuristic-primary"
+                style={{ width: '100%' }}
+              >
+                <span>Connect on LinkedIn</span>
+                <ArrowUpRight size={16} />
+              </a>
+            </div>
+          </motion.nav>
+        )}
+      </AnimatePresence>
     </>
   );
 };

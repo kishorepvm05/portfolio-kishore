@@ -240,3 +240,4 @@ export const CommandPalette = ({ isOpen, onClose }) => {
 };
 
 export default CommandPalette;
+

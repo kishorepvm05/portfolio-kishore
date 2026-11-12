@@ -1,18 +1,9 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { 
-  ArrowRight, 
-  Terminal, 
-  Sparkles, 
-  FileText, 
-  Layers, 
-  TrendingUp,
-  Download
-} from 'lucide-react';
+import { ArrowRight, Download, Sparkles, ArrowUpRight } from 'lucide-react';
 import { personalData } from '../data/personal';
-import { HeroDashboard } from '../components/HeroDashboard';
-import { Hero3DScene } from '../components/Hero3DScene';
-import { TechIcon } from '../components/TechIcon';
+import { projectsData } from '../data/projects';
+import { skillsData } from '../data/skills';
 
 export const HeroSection = () => {
   const scrollTo = (href) => {
@@ -25,113 +16,116 @@ export const HeroSection = () => {
   };
 
   return (
-    <section id="hero" className="hero-section" aria-label="Introduction">
-      {/* Interactive 3D Three.js Particle Universe & Objects */}
-      <Hero3DScene />
-
-      <div className="container" style={{ position: 'relative', zIndex: 3 }}>
-        <div className="hero-grid">
+    <section id="hero" className="hero-editorial-section" aria-label="Hero — Introduction">
+      <div className="container">
+        <div className="hero-editorial-grid">
           
-          {/* Left Column: Editorial Futuristic Hero Messaging */}
+          {/* 1. LEFT CONTENT: Identity & Introduction */}
           <motion.div 
-            className="hero-content"
+            className="hero-left-content"
             initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           >
-            {/* Eyebrow Status Badge */}
-            <div className="hero-eyebrow">
-              <span className="badge-tag-dot" />
-              <span style={{ fontSize: '0.78rem', fontFamily: 'var(--font-mono)', letterSpacing: '0.06em', textTransform: 'uppercase', color: 'var(--cyan)' }}>
-                {personalData.availability.status}
-              </span>
+            {/* Professional Role Badge */}
+            <div className="hero-role-badge">
+              <span className="editorial-tag-dot" />
+              <span>{personalData.role}</span>
             </div>
 
             {/* Main Headline */}
-            <h1 className="hero-title">
-              Hi, I&apos;m <span className="gradient-text">{personalData.name}</span>.
+            <h1 className="hero-editorial-title">
+              I&apos;m Kishore, <br />
+              an <em>Aspiring</em> Data Analyst.
             </h1>
 
-            {/* Professional Role Title */}
-            <div className="hero-subtitle">
-              <span>Data Analyst</span>
-              <span style={{ color: 'var(--cyan)' }}>&bull;</span>
-              <span style={{ color: 'var(--text-secondary)', fontWeight: 500 }}>
-                Business Intelligence Enthusiast
-              </span>
-            </div>
-
-            {/* Tagline & Personal Introduction */}
-            <p className="hero-tagline">
-              <strong>{personalData.tagline}</strong> BBA graduate (2026, 66.67%) currently pursuing MBA. 
-              Transforming complex raw databases into clean executive dashboards and high-impact decision models 
-              using Excel, Power&nbsp;BI, MySQL, and Python.
+            {/* Short Professional Narrative */}
+            <p className="hero-editorial-bio">
+              Bridging business administration fundamentals with data-driven decision models. 
+              Specializing in Microsoft Excel, Power BI dashboards, SQL databases, and Python exploration.
             </p>
 
-            {/* 3 Call-To-Action Buttons */}
-            <div className="hero-cta-group">
-              <button
-                className="btn-futuristic-primary"
+            {/* Call to Actions */}
+            <div className="hero-editorial-actions">
+              <button 
                 onClick={() => scrollTo('#projects')}
-                aria-label="Explore My Work"
+                className="btn-editorial-pill"
+                aria-label="View My Projects"
               >
-                <span>Explore My Work</span>
-                <ArrowRight size={17} />
+                <span>View My Projects</span>
+                <ArrowRight size={16} />
               </button>
 
-              <a
+              <a 
                 href={personalData.resume.downloadUrl}
                 download={personalData.resume.fileName}
-                className="btn-futuristic-secondary"
+                className="btn-editorial-outline"
                 aria-label="Download Resume"
-                style={{ textDecoration: 'none' }}
               >
-                <Download size={17} />
-                <span>Download Resume</span>
+                <Download size={15} />
+                <span>Resume</span>
               </a>
-
-              <button
-                className="btn-futuristic-ghost"
-                onClick={() => scrollTo('#contact')}
-                aria-label="Let's Connect"
-              >
-                <span>Let&apos;s Connect</span>
-                <Sparkles size={15} />
-              </button>
             </div>
+          </motion.div>
 
-            {/* Interactive Technology Strip */}
-            <div className="hero-tech-strip">
-              <span className="hero-tech-label">Core Stack:</span>
-              <div className="hero-tech-pills">
-                <div className="hero-tech-item" title="Microsoft Excel: Advanced Lookups & Pivot Models">
-                  <TechIcon name="Microsoft Excel" size={18} />
-                  <span>Excel</span>
-                </div>
-                <div className="hero-tech-item" title="Power BI: DAX & Interactive Dashboards">
-                  <TechIcon name="Power BI" size={18} />
-                  <span>Power BI</span>
-                </div>
-                <div className="hero-tech-item" title="MySQL: Complex Joins & Business Metrics">
-                  <TechIcon name="MySQL" size={18} />
-                  <span>MySQL</span>
-                </div>
-                <div className="hero-tech-item" title="Python: Data Cleaning & Exploratory Analysis">
-                  <TechIcon name="Python" size={18} />
-                  <span>Python</span>
-                </div>
+          {/* 2. CENTER CONTENT: Large Original Profile Photograph Centerpiece */}
+          <motion.div 
+            className="hero-center-portrait-col"
+            initial={{ opacity: 0, y: 35, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: 0.15 }}
+          >
+            <div className="portrait-glow-halo" />
+
+            <div className="portrait-frame-container">
+              <img 
+                src="/kishore-profile.png" 
+                alt="Kishore T — Data Analyst Profile Portrait"
+                className="portrait-image-element"
+                loading="eager"
+                onError={(e) => {
+                  // Fallback to portrait jpg if needed
+                  e.currentTarget.src = '/kishore-portrait.jpg';
+                }}
+              />
+            </div>
+          </motion.div>
+
+          {/* 3. RIGHT CONTENT: Elegant Real Data Statistics */}
+          <motion.div 
+            className="hero-right-metrics"
+            initial={{ opacity: 0, x: 30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.25 }}
+          >
+            {/* Metric 1: Core Technologies */}
+            <div className="editorial-metric-card">
+              <div className="metric-number-large">04</div>
+              <div className="metric-label-caps">Analytics Stack</div>
+              <div className="metric-detail-text">
+                Excel, Power BI, MySQL &amp; Python
               </div>
             </div>
 
-          </motion.div>
+            {/* Metric 2: Projects Completed */}
+            <div className="editorial-metric-card">
+              <div className="metric-number-large">
+                0{projectsData.length}
+              </div>
+              <div className="metric-label-caps">Case Studies</div>
+              <div className="metric-detail-text">
+                Retail e-commerce, sales BI &amp; exploratory models
+              </div>
+            </div>
 
-          {/* Right Column: Floating Interactive Analytics Dashboard */}
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: 0.15 }}
-          >
-            <HeroDashboard />
+            {/* Metric 3: Academic Foundation & Year */}
+            <div className="editorial-metric-card">
+              <div className="metric-number-large">2026</div>
+              <div className="metric-label-caps">Academic Year</div>
+              <div className="metric-detail-text">
+                BBA Graduate (66.67%) &bull; Pursuing MBA
+              </div>
+            </div>
           </motion.div>
 
         </div>

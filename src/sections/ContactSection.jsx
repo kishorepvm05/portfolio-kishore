@@ -1,16 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { 
-  Mail, 
-  Send, 
-  Linkedin, 
-  Github, 
-  MapPin, 
-  CheckCircle2, 
-  ArrowUpRight,
-  MessageSquare,
-  Sparkles
-} from 'lucide-react';
+import { Mail, Linkedin, Github, MapPin, Send, CheckCircle2 } from 'lucide-react';
 import { personalData } from '../data/personal';
 
 export const ContactSection = () => {
@@ -30,9 +20,8 @@ export const ContactSection = () => {
     e.preventDefault();
     if (!formData.name || !formData.email || !formData.message) return;
 
-    // Create standard mailto fallback with URL encoding
     const mailtoUrl = `mailto:${personalData.contact.email}?subject=${encodeURIComponent(
-      formData.subject || `Portfolio Inquiry from ${formData.name}`
+      formData.subject || `Inquiry from ${formData.name}`
     )}&body=${encodeURIComponent(
       `Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`
     )}`;
@@ -42,219 +31,152 @@ export const ContactSection = () => {
   };
 
   return (
-    <section id="contact" className="section-wrapper" aria-label="Contact Kishore T">
+    <section id="contact" className="section-wrapper" aria-label="Contact Kishore">
       <div className="container">
         
-        {/* Section Header */}
-        <div className="section-header">
-          <span className="badge-tag">
-            <span className="badge-tag-dot" />
-            06 &bull; Direct Outreach
-          </span>
-          <h2 className="section-title">
-            Let&apos;s Build Something <span className="gradient-text">Meaningful</span>
-          </h2>
-          <p className="section-subtitle">
-            Whether you are scouting an ambitious Data Analyst, exploring a Business Intelligence junior role, or discussing analytics models—my inbox is always open.
-          </p>
-        </div>
-
-        {/* Contact Glass Card */}
-        <motion.div 
-          className="contact-glass-card"
-          initial={{ opacity: 0, y: 35 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-50px' }}
-          transition={{ duration: 0.7 }}
-        >
-          <div className="contact-grid">
+        {/* Contact Editorial Container */}
+        <div className="contact-editorial-box">
+          <div className="contact-layout-split">
             
-            {/* Left Column: Direct Info & Social Connections */}
-            <div className="contact-info-col">
-              <h3 className="contact-info-headline">
-                Have a project or opportunity in mind?
-              </h3>
-
-              <p className="contact-info-desc">
-                Feel free to email me directly or send a message via the form. I typically respond within 24 hours.
+            {/* Left: Headline & Information */}
+            <div>
+              <span className="section-number">05 / Outreach</span>
+              <h2 className="contact-title-editorial">
+                Let&apos;s build something <br />
+                <em>meaningful</em> together.
+              </h2>
+              <p style={{ color: 'var(--text-secondary)', fontSize: '0.95rem', lineHeight: 1.7, marginBottom: '24px' }}>
+                Open to entry-level Data Analyst, Business Intelligence, and Junior Analytics roles. Direct lines are open.
               </p>
 
-              {/* Direct Channels */}
-              <div className="contact-channels">
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
                 <a 
                   href={`mailto:${personalData.contact.email}`}
-                  className="contact-channel-row"
-                  style={{ textDecoration: 'none' }}
+                  style={{ display: 'flex', alignItems: 'center', gap: '10px', color: 'var(--text-primary)', textDecoration: 'none', fontWeight: 600, fontSize: '0.95rem' }}
                 >
-                  <div className="contact-channel-icon">
-                    <Mail size={18} />
-                  </div>
-                  <div>
-                    <div style={{ fontSize: '0.72rem', fontFamily: 'var(--font-mono)', color: 'var(--text-muted)', textTransform: 'uppercase' }}>
-                      Direct Email
-                    </div>
-                    <div style={{ color: 'var(--text-primary)', fontWeight: 600 }}>
-                      {personalData.contact.email}
-                    </div>
-                  </div>
+                  <Mail size={18} style={{ color: 'var(--accent-gold)' }} />
+                  <span>{personalData.contact.email}</span>
                 </a>
 
                 <a 
                   href={personalData.contact.linkedin}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="contact-channel-row"
-                  style={{ textDecoration: 'none' }}
+                  style={{ display: 'flex', alignItems: 'center', gap: '10px', color: 'var(--text-secondary)', textDecoration: 'none', fontSize: '0.9rem' }}
                 >
-                  <div className="contact-channel-icon">
-                    <Linkedin size={18} />
-                  </div>
-                  <div>
-                    <div style={{ fontSize: '0.72rem', fontFamily: 'var(--font-mono)', color: 'var(--text-muted)', textTransform: 'uppercase' }}>
-                      Professional Network
-                    </div>
-                    <div style={{ color: 'var(--text-primary)', fontWeight: 600, display: 'flex', alignItems: 'center', gap: 4 }}>
-                      <span>LinkedIn Profile</span>
-                      <ArrowUpRight size={14} style={{ color: 'var(--cyan)' }} />
-                    </div>
-                  </div>
+                  <Linkedin size={18} style={{ color: 'var(--accent-gold)' }} />
+                  <span>LinkedIn Profile &rarr;</span>
                 </a>
 
                 <a 
                   href={personalData.contact.github}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="contact-channel-row"
-                  style={{ textDecoration: 'none' }}
+                  style={{ display: 'flex', alignItems: 'center', gap: '10px', color: 'var(--text-secondary)', textDecoration: 'none', fontSize: '0.9rem' }}
                 >
-                  <div className="contact-channel-icon">
-                    <Github size={18} />
-                  </div>
-                  <div>
-                    <div style={{ fontSize: '0.72rem', fontFamily: 'var(--font-mono)', color: 'var(--text-muted)', textTransform: 'uppercase' }}>
-                      Code Repositories
-                    </div>
-                    <div style={{ color: 'var(--text-primary)', fontWeight: 600, display: 'flex', alignItems: 'center', gap: 4 }}>
-                      <span>github.com/kishorepvm05</span>
-                      <ArrowUpRight size={14} style={{ color: 'var(--cyan)' }} />
-                    </div>
-                  </div>
+                  <Github size={18} style={{ color: 'var(--accent-gold)' }} />
+                  <span>GitHub Repositories &rarr;</span>
                 </a>
 
-                <div className="contact-channel-row">
-                  <div className="contact-channel-icon">
-                    <MapPin size={18} />
-                  </div>
-                  <div>
-                    <div style={{ fontSize: '0.72rem', fontFamily: 'var(--font-mono)', color: 'var(--text-muted)', textTransform: 'uppercase' }}>
-                      Location
-                    </div>
-                    <div style={{ color: 'var(--text-primary)', fontWeight: 600 }}>
-                      {personalData.location.full}
-                    </div>
-                  </div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '10px', color: 'var(--text-muted)', fontSize: '0.85rem' }}>
+                  <MapPin size={18} style={{ color: 'var(--accent-gold)' }} />
+                  <span>{personalData.location.full}</span>
                 </div>
               </div>
             </div>
 
-            {/* Right Column: Interactive Form */}
-            <div className="contact-form-col">
+            {/* Right: Contact Form */}
+            <div>
               {submitted ? (
-                <div style={{ padding: '30px', textAlign: 'center', background: 'rgba(16, 185, 129, 0.1)', borderRadius: '12px', border: '1px solid rgba(16, 185, 129, 0.3)' }}>
-                  <CheckCircle2 size={40} style={{ color: 'var(--emerald)', margin: '0 auto 12px auto' }} />
-                  <h4 style={{ fontFamily: 'var(--font-heading)', fontSize: '1.25rem', fontWeight: 700, marginBottom: '6px' }}>
-                    Email Client Triggered!
+                <div style={{ padding: '24px', background: 'var(--bg-card-subtle)', borderRadius: '12px', textAlign: 'center' }}>
+                  <CheckCircle2 size={36} style={{ color: '#16A34A', margin: '0 auto 12px auto' }} />
+                  <h4 style={{ fontFamily: 'var(--font-serif)', fontSize: '1.25rem', marginBottom: '6px' }}>
+                    Email Draft Ready!
                   </h4>
                   <p style={{ fontSize: '0.875rem', color: 'var(--text-secondary)' }}>
-                    Your message draft has opened in your default email client. You can also write to me at <strong>{personalData.contact.email}</strong>.
+                    Your email client has opened with your inquiry pre-filled. You can also write directly to {personalData.contact.email}.
                   </p>
-                  <button
-                    className="btn-futuristic-ghost"
-                    onClick={() => setSubmitted(false)}
-                    style={{ marginTop: '16px' }}
-                  >
-                    Send Another Message
-                  </button>
                 </div>
               ) : (
-                <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
-                  <div className="form-group">
-                    <label className="form-label">Your Name</label>
-                    <input
-                      type="text"
-                      name="name"
-                      required
-                      placeholder="e.g. Alex Johnson"
-                      className="form-input"
-                      value={formData.name}
-                      onChange={handleChange}
+                <form onSubmit={handleSubmit}>
+                  <div className="editorial-form-group">
+                    <label className="editorial-form-label">Your Name</label>
+                    <input 
+                      type="text" 
+                      name="name" 
+                      required 
+                      placeholder="Alex Johnson" 
+                      className="editorial-form-input" 
+                      value={formData.name} 
+                      onChange={handleChange} 
                     />
                   </div>
 
-                  <div className="form-group">
-                    <label className="form-label">Email Address</label>
-                    <input
-                      type="email"
-                      name="email"
-                      required
-                      placeholder="alex@company.com"
-                      className="form-input"
-                      value={formData.email}
-                      onChange={handleChange}
+                  <div className="editorial-form-group">
+                    <label className="editorial-form-label">Email Address</label>
+                    <input 
+                      type="email" 
+                      name="email" 
+                      required 
+                      placeholder="alex@company.com" 
+                      className="editorial-form-input" 
+                      value={formData.email} 
+                      onChange={handleChange} 
                     />
                   </div>
 
-                  <div className="form-group">
-                    <label className="form-label">Subject</label>
-                    <input
-                      type="text"
-                      name="subject"
-                      placeholder="Data Analyst Opportunity / Discussion"
-                      className="form-input"
-                      value={formData.subject}
-                      onChange={handleChange}
+                  <div className="editorial-form-group">
+                    <label className="editorial-form-label">Subject</label>
+                    <input 
+                      type="text" 
+                      name="subject" 
+                      placeholder="Data Analyst Opportunity" 
+                      className="editorial-form-input" 
+                      value={formData.subject} 
+                      onChange={handleChange} 
                     />
                   </div>
 
-                  <div className="form-group">
-                    <label className="form-label">Message</label>
-                    <textarea
-                      name="message"
-                      required
-                      placeholder="Hi Kishore, I'd like to discuss an opportunity..."
-                      className="form-textarea"
-                      value={formData.message}
-                      onChange={handleChange}
+                  <div className="editorial-form-group">
+                    <label className="editorial-form-label">Message</label>
+                    <textarea 
+                      name="message" 
+                      required 
+                      rows={4} 
+                      placeholder="Hi Kishore, I'd like to discuss..." 
+                      className="editorial-form-textarea" 
+                      value={formData.message} 
+                      onChange={handleChange} 
                     />
                   </div>
 
-                  <button
-                    type="submit"
-                    className="btn-futuristic-primary"
-                    style={{ width: '100%', marginTop: '6px' }}
+                  <button 
+                    type="submit" 
+                    className="btn-editorial-pill"
+                    style={{ width: '100%', marginTop: '8px' }}
                   >
                     <span>Send Message</span>
-                    <Send size={16} />
+                    <Send size={15} />
                   </button>
                 </form>
               )}
             </div>
 
           </div>
-        </motion.div>
+        </div>
 
-        {/* Global Footer */}
-        <footer className="site-footer">
-          <div className="footer-content">
+        {/* Footer */}
+        <footer className="site-footer-editorial">
+          <div className="footer-inner-editorial">
             <div>
-              &copy; {new Date().getFullYear()} {personalData.name}. Handcrafted with precision for high-impact analytics.
+              &copy; {new Date().getFullYear()} Kishore T &bull; Designed &amp; Developed with Architectural Precision.
             </div>
-            <div style={{ display: 'flex', gap: '18px' }}>
-              <a href={personalData.contact.portfolioRepo} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--cyan)' }}>
-                GitHub Repository ↗
+            <div style={{ display: 'flex', gap: '20px' }}>
+              <a href={personalData.contact.portfolioRepo} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--text-primary)', textDecoration: 'underline' }}>
+                GitHub Repository
               </a>
               <a href={personalData.contact.linkedin} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--text-secondary)' }}>
-                LinkedIn ↗
+                LinkedIn
               </a>
             </div>
           </div>

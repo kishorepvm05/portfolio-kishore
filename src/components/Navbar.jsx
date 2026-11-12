@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, ArrowUpRight } from 'lucide-react';
+import { Menu, X, ArrowUpRight, Command, Search } from 'lucide-react';
 import { ThemeToggle } from './ThemeToggle';
 import { personalData } from '../data/personal';
 
@@ -13,7 +13,7 @@ const NAV_ITEMS = [
   { label: 'Contact', href: '#contact' },
 ];
 
-export const Navbar = ({ isDark, onToggleTheme }) => {
+export const Navbar = ({ isDark, onToggleTheme, onOpenCommandPalette }) => {
   const [activeSection, setActiveSection] = useState('hero');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -69,7 +69,7 @@ export const Navbar = ({ isDark, onToggleTheme }) => {
             </span>
           </a>
 
-          {/* Desktop Navigation Links with animated active pill */}
+          {/* Desktop Navigation Links */}
           <nav className="navbar-links" aria-label="Main Navigation">
             {NAV_ITEMS.map((item) => {
               const isActive = activeSection === item.href.substring(1);
@@ -92,11 +92,22 @@ export const Navbar = ({ isDark, onToggleTheme }) => {
             })}
           </nav>
 
-          {/* Actions & Status Indicator */}
+          {/* Actions: Command Palette, Theme, Mobile toggle */}
           <div className="navbar-actions">
+            {/* Ctrl+K Quick Trigger */}
+            <button
+              onClick={onOpenCommandPalette}
+              className="theme-toggle-btn"
+              title="Open Command Palette (Ctrl + K)"
+              style={{ width: 'auto', padding: '0 10px', borderRadius: '18px', gap: '6px', fontSize: '0.75rem', fontFamily: 'var(--font-mono)' }}
+            >
+              <Search size={14} style={{ color: 'var(--cyan)' }} />
+              <span style={{ color: 'var(--text-muted)' }}>Ctrl+K</span>
+            </button>
+
             <div className="availability-pill" title="Open to Data Analyst & BI Roles">
               <span className="availability-dot" />
-              <span>Available for Work</span>
+              <span>Available</span>
             </div>
 
             <ThemeToggle isDark={isDark} onToggle={onToggleTheme} />
@@ -142,13 +153,25 @@ export const Navbar = ({ isDark, onToggleTheme }) => {
               );
             })}
 
-            <div style={{ marginTop: 'auto', paddingTop: 20, borderTop: '1px solid var(--border-subtle)' }}>
+            <div style={{ marginTop: 'auto', paddingTop: 20, borderTop: '1px solid var(--border-subtle)', display: 'flex', flexDirection: 'column', gap: '10px' }}>
+              <button
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  onOpenCommandPalette();
+                }}
+                className="btn-futuristic-secondary"
+                style={{ width: '100%', justifyContent: 'center' }}
+              >
+                <Search size={16} />
+                <span>Command Menu (Ctrl + K)</span>
+              </button>
+
               <a
                 href={personalData.contact.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-futuristic-primary"
-                style={{ width: '100%' }}
+                style={{ width: '100%', justifyContent: 'center' }}
               >
                 <span>Connect on LinkedIn</span>
                 <ArrowUpRight size={16} />

@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { motion, useScroll, useSpring } from 'framer-motion';
+import Lenis from 'lenis';
 import { Navbar } from './components/Navbar';
 import { BackToTop } from './components/BackToTop';
 import { Modal } from './components/Modal';
+import { CommandPalette } from './components/CommandPalette';
+import { AIAssistant } from './components/AIAssistant';
 import { HeroSection } from './sections/HeroSection';
 import { AboutSection } from './sections/AboutSection';
 import { SkillsSection } from './sections/SkillsSection';
@@ -12,10 +15,41 @@ import { ContactSection } from './sections/ContactSection';
 
 export const App = () => {
   const [activeModal, setActiveModal] = useState(null);
+  const [commandPaletteOpen, setCommandPaletteOpen] = useState(false);
   const [isDark, setIsDark] = useState(() => {
     const saved = localStorage.getItem('theme');
-    return saved ? saved === 'dark' : true; // Default to ultra-premium dark
+    return saved ? saved === 'dark' : true;
   });
+
+  // Smooth Lenis Scroll setup
+  useEffect(() => {
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      smoothWheel: true,
+      touchMultiplier: 1.5
+    });
+
+    function raf(time) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+    requestAnimationFrame(raf);
+
+    return () => lenis.destroy();
+  }, []);
+
+  // Keyboard shortcut Ctrl + K
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault();
+        setCommandPaletteOpen(prev => !prev);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
 
   // Scroll Progress Bar Spring
   const { scrollYProgress } = useScroll();
@@ -62,8 +96,12 @@ export const App = () => {
         <div className="ambient-orb ambient-orb-3" />
       </div>
 
-      {/* Floating Glassmorphism Navbar with Theme Switch */}
-      <Navbar isDark={isDark} onToggleTheme={toggleTheme} />
+      {/* Floating Glassmorphism Navbar with Command Trigger & Theme Switch */}
+      <Navbar 
+        isDark={isDark} 
+        onToggleTheme={toggleTheme} 
+        onOpenCommandPalette={() => setCommandPaletteOpen(true)}
+      />
 
       {/* Main Content Sections */}
       <main style={{ position: 'relative', zIndex: 2 }}>
@@ -75,6 +113,9 @@ export const App = () => {
         <ContactSection />
       </main>
 
+      {/* Interactive AI Portfolio Assistant */}
+      <AIAssistant />
+
       {/* Floating Back to Top Control */}
       <BackToTop />
 
@@ -82,6 +123,12 @@ export const App = () => {
       {activeModal && (
         <Modal project={activeModal} onClose={handleCloseModal} />
       )}
+
+      {/* Ctrl + K Command Palette */}
+      <CommandPalette 
+        isOpen={commandPaletteOpen} 
+        onClose={() => setCommandPaletteOpen(false)} 
+      />
     </div>
   );
 };

@@ -11,6 +11,7 @@ import {
 } from 'lucide-react';
 import { personalData } from '../data/personal';
 import { HeroDashboard } from '../components/HeroDashboard';
+import { Hero3DScene } from '../components/Hero3DScene';
 import { TechIcon } from '../components/TechIcon';
 
 export const HeroSection = () => {
@@ -25,7 +26,10 @@ export const HeroSection = () => {
 
   return (
     <section id="hero" className="hero-section" aria-label="Introduction">
-      <div className="container">
+      {/* Interactive 3D Three.js Particle Universe & Objects */}
+      <Hero3DScene />
+
+      <div className="container" style={{ position: 'relative', zIndex: 3 }}>
         <div className="hero-grid">
           
           {/* Left Column: Editorial Futuristic Hero Messaging */}
@@ -75,14 +79,16 @@ export const HeroSection = () => {
                 <ArrowRight size={17} />
               </button>
 
-              <button
+              <a
+                href={personalData.resume.downloadUrl}
+                download={personalData.resume.fileName}
                 className="btn-futuristic-secondary"
-                onClick={() => scrollTo('#skills')}
-                aria-label="View My Skills"
+                aria-label="Download Resume"
+                style={{ textDecoration: 'none' }}
               >
-                <Layers size={17} />
-                <span>View My Skills</span>
-              </button>
+                <Download size={17} />
+                <span>Download Resume</span>
+              </a>
 
               <button
                 className="btn-futuristic-ghost"

@@ -5,17 +5,17 @@ import { personalData } from '../data/personal';
 
 export const AboutSection = () => {
   return (
-    <section id="about" className="section-wrapper" aria-label="About Kishore">
+    <section id="about" className="section-wrapper" aria-label="About Kishore T">
       <div className="container">
         
         {/* Section Header */}
         <div className="section-header-agency">
           <span className="section-number-tag">03 / Strategic Context</span>
           <h2 className="section-title-agency">
-            Business Foundations &amp; <span className="serif-italic">Analytical Rigor</span>
+            Business Administration &amp; <span className="serif-italic">Analytical Rigor</span>
           </h2>
           <p className="section-lead-agency">
-            Understanding why data matters to executive decision-makers before writing the first line of code or formula.
+            Understanding why metrics matter to corporate decision-makers before writing the first formula, query, or dashboard layout.
           </p>
         </div>
 
@@ -31,7 +31,7 @@ export const AboutSection = () => {
             transition={{ duration: 0.6 }}
           >
             <p className="about-quote-lead">
-              &ldquo;Modern business decisions aren&apos;t built on guesswork—they rely on data-backed insights.&rdquo;
+              &ldquo;Modern business decisions aren&apos;t built on intuition alone—they rely on data-backed intelligence.&rdquo;
             </p>
 
             <p className="about-prose-paragraph">
@@ -46,14 +46,18 @@ export const AboutSection = () => {
               {personalData.aboutStory.paragraph3}
             </p>
 
-            <div className="about-meta-row">
+            <div className="about-meta-row" style={{ flexWrap: 'wrap', gap: '16px' }}>
               <div className="about-meta-item">
                 <MapPin size={17} style={{ color: 'var(--accent-orange)' }} />
                 <span>{personalData.location.full}</span>
               </div>
               <div className="about-meta-item">
                 <GraduationCap size={17} style={{ color: 'var(--accent-orange)' }} />
-                <span>{personalData.educationSummary.college}</span>
+                <span>MBA: {personalData.educationSummary.mbaCollege}</span>
+              </div>
+              <div className="about-meta-item">
+                <GraduationCap size={17} style={{ color: 'var(--accent-orange)' }} />
+                <span>BBA (66.67%): {personalData.educationSummary.bbaCollege}</span>
               </div>
             </div>
           </motion.div>

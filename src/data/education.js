@@ -1,7 +1,8 @@
 /**
  * Education Data
- * Honest academic record matching user specifications.
- * No fabricated dates, degrees, or certifications.
+ * Kishore T — Academic Foundation
+ * Undergraduate: Sir Issac Newton Arts and Science College (BBA 2026, 66.67%)
+ * Postgraduate: Sembodai R.V Arts and Science College (MBA Currently Pursuing)
  */
 
 export const educationData = [
@@ -11,19 +12,19 @@ export const educationData = [
     field: "Business Administration & Management Studies",
     status: "Currently Pursuing",
     isCurrent: true,
-    institution: "Sir Issac Newton Arts and Science College",
-    location: "Nagapattinam, Tamil Nadu, India",
+    institution: "Sembodai R.V Arts and Science College",
+    location: "Tamil Nadu, India",
     period: "Current Studies",
-    badge: "In Progress",
+    badge: "In Progress • MBA",
     description: 
-      "Currently advancing my knowledge in business management, organizational strategy, and managerial decision-making while actively expanding technical competencies in data analytics and business intelligence.",
+      "Currently advancing my expertise in organizational leadership, strategic decision science, and corporate financial management while actively specializing in Business Intelligence, predictive data analytics, and relational database systems.",
     keyFocusAreas: [
-      "Strategic Business Management",
-      "Managerial Economics & Decision Science",
-      "Information Systems & Business Intelligence",
-      "Quantitative Techniques for Business"
+      "Strategic Business Management & Leadership",
+      "Managerial Economics & Quantitative Decision Science",
+      "Business Intelligence Systems & Modern Analytics",
+      "Operations, Financial Planning & Performance Metrics"
     ],
-    accentColor: "#38bdf8"
+    accentColor: "#D97752"
   },
   {
     id: "bba",
@@ -39,12 +40,12 @@ export const educationData = [
     gradeValue: "66.67%",
     badge: "Completed • 66.67%",
     description: 
-      "Completed a rigorous undergraduate foundation in commerce, marketing, human resources, financial principles, and business analytics concepts.",
+      "Completed a rigorous undergraduate foundation in commerce, marketing analytics, financial principles, and business operational workflows.",
     keyFocusAreas: [
-      "Principles of Management & Organizational Behavior",
-      "Financial Accounting & Cost Management",
-      "Business Research Methods & Statistics",
-      "Operations & Supply Chain Basics"
+      "Principles of Management & Organizational Strategy",
+      "Financial Accounting & Cost Control",
+      "Business Research Methods & Descriptive Statistics",
+      "Commercial Operations & Supply Chain Foundations"
     ],
     accentColor: "#10b981"
   }
@@ -52,23 +53,23 @@ export const educationData = [
 
 export const academicHighlights = [
   {
+    label: "Postgraduate Degree",
+    value: "MBA (In Progress)",
+    detail: "Sembodai R.V Arts and Science College"
+  },
+  {
     label: "Undergraduate Degree",
     value: "BBA (2026)",
     detail: "Sir Issac Newton Arts and Science College"
   },
   {
-    label: "Undergraduate Percentage",
+    label: "Undergraduate Score",
     value: "66.67%",
-    detail: "Consistently maintained in business coursework"
+    detail: "Strong foundational commercial curriculum"
   },
   {
-    label: "Postgraduate Pursuit",
-    value: "MBA",
-    detail: "Deepening business acumen & analytics synergy"
-  },
-  {
-    label: "Location",
-    value: "Nagapattinam",
-    detail: "Tamil Nadu, India"
+    label: "Professional Focus",
+    value: "Data & BI",
+    detail: "Excel, Power BI, MySQL & Python"
   }
 ];

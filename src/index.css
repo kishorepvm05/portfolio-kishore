@@ -860,9 +860,6 @@ html.dark {
   border-radius: 50%;
   background: var(--accent-orange);
 }
-  margin-top: 4px;
-  line-height: 1.5;
-}
 
 /* ── 7. ABOUT SECTION: EDITORIAL LAYOUT ───────────────────── */
 .about-asymmetric-layout {
@@ -1214,6 +1211,181 @@ html.dark {
 .form-input-agency:focus, .form-textarea-agency:focus {
   border-color: var(--accent-orange);
   background: #FFFFFF;
+}
+
+/* ── CONTACT DIRECT CARDS & PROFILES ──────────────────────── */
+.contact-cards-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 10px;
+}
+
+.contact-direct-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 18px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-subtle);
+  transition: all 0.25s ease;
+}
+
+.contact-direct-card:hover {
+  border-color: var(--accent-orange);
+  box-shadow: var(--shadow-card);
+  transform: translateY(-2px);
+}
+
+.contact-direct-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: var(--accent-orange-soft);
+  color: var(--accent-orange);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-right: 14px;
+}
+
+.contact-direct-info {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.contact-direct-label {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.contact-direct-value {
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-charcoal);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.contact-direct-value:hover {
+  color: var(--accent-orange);
+}
+
+.contact-copy-btn {
+  background: var(--bg-surface-subtle);
+  border: 1px solid var(--border-subtle);
+  border-radius: 8px;
+  width: 34px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--text-muted);
+  transition: all 0.2s ease;
+}
+
+.contact-copy-btn:hover {
+  background: var(--text-charcoal);
+  color: var(--bg-ivory);
+}
+
+.contact-whatsapp-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+  background: #25D366;
+  color: #FFFFFF;
+  font-family: var(--font-heading);
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.contact-whatsapp-btn:hover {
+  background: #20ba59;
+  transform: translateY(-1px);
+}
+
+.contact-profiles-row {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.contact-profile-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 18px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  transition: all 0.25s ease;
+}
+
+.contact-profile-card:hover {
+  border-color: var(--accent-orange);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-subtle);
+}
+
+.contact-academic-banner {
+  padding: 16px 20px;
+  background: var(--bg-surface-subtle);
+  border: 1px dashed var(--border-medium);
+  border-radius: var(--radius-md);
+  margin-top: 4px;
+}
+
+.footer-social-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.footer-social-link:hover {
+  color: var(--accent-orange);
+  transform: translateY(-1px);
+}
+
+.btn-linkedin-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 22px;
+  border-radius: var(--radius-full);
+  background: #0A66C2;
+  color: #FFFFFF;
+  font-family: var(--font-heading);
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 14px rgba(10, 102, 194, 0.3);
+}
+
+.btn-linkedin-pill:hover {
+  background: #004182;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(10, 102, 194, 0.45);
 }
 
 /* Advanced Agency Footer with Oversized LET'S TALK */

@@ -1,18 +1,18 @@
 /**
  * Personal Details & Profile Information
- * Easily editable by Kishore T
+ * Kishore T — Data Analyst & Business Intelligence
  */
 
 export const personalData = {
   name: "Kishore T",
   shortName: "Kishore",
-  role: "Aspiring Data Analyst",
-  tagline: "Turning Data Into Meaningful Insights.",
+  role: "Data Analyst & Business Intelligence",
+  tagline: "Turning Complex Data Into Actionable Business Intelligence.",
   greeting: "HELLO, I'M KISHORE T",
   
   availability: {
-    status: "Open to Entry-Level Opportunities",
-    type: "Full-Time / Internship / Junior Roles",
+    status: "Open to Opportunities",
+    type: "Full-Time / Data Analyst / Business Intelligence",
     isAvailable: true,
   },
 
@@ -26,68 +26,73 @@ export const personalData = {
   educationSummary: {
     degree: "BBA Graduate (2026)",
     current: "Pursuing MBA",
-    college: "Sir Issac Newton Arts and Science College",
+    mbaCollege: "Sembodai R.V Arts and Science College",
+    bbaCollege: "Sir Issac Newton Arts and Science College",
     percentage: "66.67%",
   },
 
-  // Friendly, honest, natural introduction
+  // Professional introduction
   introduction: 
-    "Hi, I'm Kishore! I'm a BBA graduate exploring the world of Data Analytics. I enjoy working with data, discovering useful insights, and turning numbers into meaningful stories. I'm continuously improving my skills in Excel, Power BI, MySQL, and Python as I work toward becoming a Data Analyst.",
+    "Hi, I'm Kishore T! I'm a Business Administration graduate specializing in Data Analytics & Business Intelligence. I transform raw transactional records and disparate datasets into clean interactive Power BI dashboards, optimized relational SQL queries, automated Excel summary models, and Python exploratory frameworks to empower executive decision-making.",
 
   careerGoal: 
-    "I want to build my career in Data Analytics and Business Intelligence. I enjoy learning technical tools, understanding data, solving problems, and converting raw information into meaningful insights.",
+    "To drive quantitative impact as a Data Analyst & Business Intelligence specialist by bridging strategic commercial administration with rigorous database querying, interactive dashboard storytelling, and predictive analysis.",
 
   aboutStory: {
     paragraph1:
-      "My journey started with a Bachelor of Business Administration (BBA) at Sir Issac Newton Arts and Science College. During my business studies, I realized that modern business decisions aren't based on guesswork—they rely on data-backed insights.",
+      "My educational journey began with a Bachelor of Business Administration (BBA) at Sir Issac Newton Arts and Science College (Graduating 2026 with 66.67%). Throughout my business coursework, I realized that high-performance management and strategic leadership depend fundamentally on data-backed insights rather than guesswork.",
     paragraph2:
-      "This realization sparked my curiosity for technical analytics tools. Alongside pursuing my MBA, I've been dedicating consistent hours every day to mastering Microsoft Excel, interactive Power BI dashboards, structured MySQL database querying, and Python fundamentals.",
+      "Currently pursuing my Master of Business Administration (MBA) at Sembodai R.V Arts and Science College, I pair postgraduate managerial acumen with daily technical mastery in Microsoft Excel, Power BI DAX modeling, relational MySQL database architecture, and Python data exploration.",
     paragraph3:
-      "I bring a rare blend: a solid grounding in business operations and management fundamentals paired with an eagerness to get hands-on with data cleaning, exploratory analysis, and visual storytelling.",
+      "I bring a rare blend: a thorough understanding of business operations, sales pipelines, and margin structures, coupled with the technical capability to extract, clean, model, and visualize data into executive decision frameworks.",
   },
 
   pillars: [
     {
-      title: "Business Understanding",
-      description: "Rooted in my BBA foundation and ongoing MBA studies, I understand how KPIs, sales funnels, and margins drive real companies.",
+      title: "Business & Management Acumen",
+      description: "Rooted in my BBA foundation and ongoing MBA studies at Sembodai R.V Arts & Science College, I understand how KPIs, sales funnels, and margins drive corporate growth.",
       icon: "TrendingUp",
     },
     {
-      title: "Analytical Mindset",
-      description: "Enjoy breaking down ambiguous problems into clean structured tables, SQL joins, and digestible visual summaries.",
+      title: "Analytical & Relational Mindset",
+      description: "Breaking down ambiguous business problems into structured schemas, multi-table SQL joins, and digestible visual dashboards.",
       icon: "PieChart",
     },
     {
-      title: "Hands-on Project Focus",
-      description: "Learning by actually building: querying sample datasets, writing formulas, structuring data models, and creating dashboards.",
+      title: "Hands-on Project Delivery",
+      description: "Proven execution across retail e-commerce SQL models, executive Power BI performance reports, and dynamic Excel financial models.",
       icon: "Layers",
     },
     {
-      title: "Continuous Curiosity",
-      description: "Active learner who views every error message as a lesson and stays committed to building practical technical proficiency.",
+      title: "Continuous Technical Curiosity",
+      description: "Active practitioner committed to modern business intelligence stacks, automated data pipelines, and quantitative precision.",
       icon: "Sparkles",
     },
   ],
 
   contact: {
-    email: "kishore.analytics.contact@gmail.com", // Replace with your real email
-    emailDisplay: "kishore.analytics.contact@gmail.com",
-    linkedin: "https://www.linkedin.com/in/kishore-t-analytics", // Replace with your LinkedIn URL
+    email: "kishorepvm05@gmail.com",
+    emailDisplay: "kishorepvm05@gmail.com",
+    phone: "+91 9677674025",
+    phoneDisplay: "+91 9677674025",
+    phoneRaw: "+919677674025",
+    whatsappUrl: "https://wa.me/919677674025?text=Hi%20Kishore,%20I%20reviewed%20your%20data%20analytics%20portfolio%20and%20would%20like%20to%20connect.",
+    linkedin: "https://www.linkedin.com/in/kishore-t-00b254394/",
+    naukri: "https://www.naukri.com", // Naukri button prepared - will link to user profile
+    hasCustomNaukriUrl: false,
     github: "https://github.com/kishorepvm05",
     portfolioRepo: "https://github.com/kishorepvm05/portfolio-kishore",
-    phonePlaceholder: "+91 98765 43210",
   },
 
   resume: {
     downloadUrl: "/resume.pdf",
     fileName: "Kishore_T_Data_Analyst_Resume.pdf",
-    lastUpdated: "October 2026",
+    lastUpdated: "November 2026",
   },
 
-  // KPI highlights for hero visual (Clearly labelled DEMO DATA)
   heroMetrics: [
     { label: "Core Analytics Tools", value: "4", note: "Excel, Power BI, SQL, Python" },
-    { label: "Education Foundation", value: "BBA + MBA", note: "Business & Management" },
+    { label: "Education Foundation", value: "BBA + MBA", note: "Sembodai R.V & Sir Issac Newton" },
     { label: "Location", value: "Tamil Nadu", note: "Nagapattinam, India" },
   ],
 };

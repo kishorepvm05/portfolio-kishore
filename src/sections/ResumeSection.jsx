@@ -143,7 +143,7 @@ export const ResumeSection = ({ onTriggerToast }) => {
                   <span>Education</span>
                 </div>
                 <div style={{ fontSize: '0.82rem', color: 'var(--color-text-secondary)', lineHeight: 1.5 }}>
-                  BBA from Sir Issac Newton Arts &amp; Science College (66.67%) + MBA studies in progress.
+                  MBA Candidate at Sembodai R.V Arts &amp; Science College + BBA from Sir Issac Newton Arts &amp; Science (66.67%).
                 </div>
               </div>
 

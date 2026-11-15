@@ -11,6 +11,8 @@ import {
   FileText, 
   Github, 
   Linkedin, 
+  Phone,
+  MessageSquare,
   ArrowRight,
   Command,
   X
@@ -33,7 +35,7 @@ export const CommandPalette = ({ isOpen, onClose }) => {
     },
     {
       id: 'about',
-      name: 'About Kishore & Background',
+      name: 'About Kishore & MBA Background',
       category: 'Navigation',
       icon: <User size={18} />,
       perform: () => {
@@ -63,7 +65,7 @@ export const CommandPalette = ({ isOpen, onClose }) => {
     },
     {
       id: 'education',
-      name: 'Education & Career Timeline',
+      name: 'Education & MBA at Sembodai R.V Arts',
       category: 'Navigation',
       icon: <GraduationCap size={18} />,
       perform: () => {
@@ -73,11 +75,41 @@ export const CommandPalette = ({ isOpen, onClose }) => {
     },
     {
       id: 'contact',
-      name: 'Get in Touch / Contact',
+      name: 'Get in Touch / Contact Section',
       category: 'Navigation',
       icon: <Mail size={18} />,
       perform: () => {
         document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' });
+        onClose();
+      }
+    },
+    {
+      id: 'email-direct',
+      name: `Email Kishore (${personalData.contact.email})`,
+      category: 'Direct Channels',
+      icon: <Mail size={18} />,
+      perform: () => {
+        window.location.href = `mailto:${personalData.contact.email}`;
+        onClose();
+      }
+    },
+    {
+      id: 'call-direct',
+      name: `Call Mobile (${personalData.contact.phone})`,
+      category: 'Direct Channels',
+      icon: <Phone size={18} />,
+      perform: () => {
+        window.location.href = `tel:${personalData.contact.phoneRaw}`;
+        onClose();
+      }
+    },
+    {
+      id: 'whatsapp-direct',
+      name: 'Message on WhatsApp (+91 9677674025)',
+      category: 'Direct Channels',
+      icon: <MessageSquare size={18} />,
+      perform: () => {
+        window.open(personalData.contact.whatsappUrl, '_blank');
         onClose();
       }
     },
@@ -92,22 +124,32 @@ export const CommandPalette = ({ isOpen, onClose }) => {
       }
     },
     {
+      id: 'linkedin',
+      name: 'Connect on LinkedIn (Kishore T)',
+      category: 'Socials',
+      icon: <Linkedin size={18} />,
+      perform: () => {
+        window.open(personalData.contact.linkedin, '_blank');
+        onClose();
+      }
+    },
+    {
+      id: 'naukri',
+      name: 'View Naukri Profile',
+      category: 'Socials',
+      icon: <Briefcase size={18} />,
+      perform: () => {
+        window.open(personalData.contact.naukri, '_blank');
+        onClose();
+      }
+    },
+    {
       id: 'github',
       name: 'View GitHub Profile',
       category: 'Socials',
       icon: <Github size={18} />,
       perform: () => {
         window.open(personalData.contact.github, '_blank');
-        onClose();
-      }
-    },
-    {
-      id: 'linkedin',
-      name: 'Connect on LinkedIn',
-      category: 'Socials',
-      icon: <Linkedin size={18} />,
-      perform: () => {
-        window.open(personalData.contact.linkedin, '_blank');
         onClose();
       }
     }
@@ -124,8 +166,6 @@ export const CommandPalette = ({ isOpen, onClose }) => {
         e.preventDefault();
         if (isOpen) {
           onClose();
-        } else {
-          // Open handled by parent or toggle
         }
       }
       if (e.key === 'Escape' && isOpen) {
@@ -139,105 +179,121 @@ export const CommandPalette = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
 
   return (
-    <AnimatePresence>
-      <div 
-        className="modal-backdrop-blur"
-        onClick={onClose}
-        style={{ zIndex: 3000 }}
+    <div className="command-palette-backdrop" onClick={onClose}>
+      <motion.div 
+        className="command-palette-container"
+        initial={{ opacity: 0, scale: 0.95, y: -20 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        exit={{ opacity: 0, scale: 0.95, y: -20 }}
+        transition={{ duration: 0.2 }}
+        onClick={(e) => e.stopPropagation()}
+        style={{
+          width: 'clamp(320px, 90vw, 580px)',
+          backgroundColor: 'var(--bg-surface)',
+          borderRadius: '16px',
+          boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.35)',
+          border: '1px solid var(--border-medium)',
+          overflow: 'hidden',
+          zIndex: 9999
+        }}
       >
-        <motion.div
-          className="modal-dialog-cyber"
-          onClick={(e) => e.stopPropagation()}
-          initial={{ opacity: 0, scale: 0.95, y: -20 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          exit={{ opacity: 0, scale: 0.95, y: -20 }}
-          transition={{ duration: 0.2 }}
-          style={{ maxWidth: '620px', padding: 0, overflow: 'hidden' }}
-        >
-          {/* Search Input Bar */}
-          <div style={{ display: 'flex', alignItems: 'center', padding: '16px 20px', borderBottom: '1px solid var(--border-subtle)', gap: '12px' }}>
-            <Search size={20} style={{ color: 'var(--cyan)' }} />
-            <input
-              type="text"
-              autoFocus
-              placeholder="Type a command or search sections... (Press ESC to exit)"
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              style={{
-                width: '100%',
-                background: 'transparent',
-                border: 'none',
-                outline: 'none',
-                color: 'var(--text-primary)',
-                fontSize: '1rem',
-                fontFamily: 'var(--font-heading)'
-              }}
-            />
-            <button onClick={onClose} style={{ color: 'var(--text-muted)', cursor: 'pointer' }}>
-              <X size={18} />
-            </button>
-          </div>
+        <div style={{
+          padding: '16px 20px',
+          borderBottom: '1px solid var(--border-subtle)',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '12px'
+        }}>
+          <Search size={18} style={{ color: 'var(--accent-orange)' }} />
+          <input
+            type="text"
+            placeholder="Type a command, section, or contact channel..."
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            autoFocus
+            style={{
+              flex: 1,
+              backgroundColor: 'transparent',
+              border: 'none',
+              outline: 'none',
+              color: 'var(--text-charcoal)',
+              fontSize: '1rem',
+              fontFamily: 'var(--font-body)'
+            }}
+          />
+          <button 
+            onClick={onClose} 
+            style={{ 
+              background: 'none', 
+              border: 'none', 
+              color: 'var(--text-muted)', 
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center'
+            }}
+          >
+            <X size={18} />
+          </button>
+        </div>
 
-          {/* Action List */}
-          <div style={{ maxHeight: '360px', overflowY: 'auto', padding: '8px' }}>
-            {filteredActions.length === 0 ? (
-              <div style={{ padding: '24px', textAlign: 'center', color: 'var(--text-muted)', fontSize: '0.9rem' }}>
-                No commands matching &ldquo;{query}&rdquo;
-              </div>
-            ) : (
-              filteredActions.map((action) => (
-                <div
-                  key={action.id}
-                  onClick={action.perform}
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                    padding: '12px 16px',
-                    borderRadius: '8px',
-                    cursor: 'pointer',
-                    transition: 'all 0.2s ease',
-                    marginBottom: '4px'
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.background = 'rgba(6, 182, 212, 0.12)';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.background = 'transparent';
-                  }}
-                >
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                    <div style={{ color: 'var(--cyan)' }}>
-                      {action.icon}
+        <div style={{ maxHeight: '360px', overflowY: 'auto', padding: '8px' }}>
+          {filteredActions.length > 0 ? (
+            filteredActions.map((action) => (
+              <div
+                key={action.id}
+                onClick={action.perform}
+                style={{
+                  padding: '12px 14px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  borderRadius: '10px',
+                  cursor: 'pointer',
+                  transition: 'background-color 0.15s ease'
+                }}
+                onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'var(--bg-surface-subtle)'}
+                onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
+              >
+                <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                  <span style={{ color: 'var(--accent-orange)', display: 'flex' }}>
+                    {action.icon}
+                  </span>
+                  <div>
+                    <div style={{ fontSize: '0.92rem', fontWeight: 500, color: 'var(--text-charcoal)' }}>
+                      {action.name}
                     </div>
-                    <div>
-                      <div style={{ fontSize: '0.92rem', fontWeight: 600, color: 'var(--text-primary)' }}>
-                        {action.name}
-                      </div>
-                      <div style={{ fontSize: '0.72rem', fontFamily: 'var(--font-mono)', color: 'var(--text-muted)' }}>
-                        {action.category}
-                      </div>
+                    <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)' }}>
+                      {action.category}
                     </div>
                   </div>
-                  <ArrowRight size={14} style={{ color: 'var(--text-muted)' }} />
                 </div>
-              ))
-            )}
-          </div>
-
-          {/* Footer Helper */}
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '10px 18px', background: 'rgba(0,0,0,0.3)', borderTop: '1px solid var(--border-subtle)', fontSize: '0.75rem', color: 'var(--text-muted)' }}>
-            <span>Navigation Quick Menu</span>
-            <div style={{ display: 'flex', gap: '10px' }}>
-              <span><kbd style={{ background: 'rgba(255,255,255,0.1)', padding: '2px 5px', borderRadius: '4px' }}>ESC</kbd> to close</span>
-              <span><kbd style={{ background: 'rgba(255,255,255,0.1)', padding: '2px 5px', borderRadius: '4px' }}>&crarr;</kbd> to select</span>
+                <ArrowRight size={15} style={{ color: 'var(--text-muted)' }} />
+              </div>
+            ))
+          ) : (
+            <div style={{ padding: '28px', textAlign: 'center', color: 'var(--text-muted)', fontSize: '0.9rem' }}>
+              No matching actions or sections found for &ldquo;{query}&rdquo;
             </div>
-          </div>
-        </motion.div>
-      </div>
-    </AnimatePresence>
+          )}
+        </div>
+
+        <div style={{
+          padding: '10px 16px',
+          backgroundColor: 'var(--bg-surface-subtle)',
+          borderTop: '1px solid var(--border-subtle)',
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          fontSize: '0.75rem',
+          color: 'var(--text-muted)',
+          fontFamily: 'var(--font-mono)'
+        }}>
+          <span>Kishore T &bull; Data Analyst &amp; BI</span>
+          <span>ESC to close</span>
+        </div>
+      </motion.div>
+    </div>
   );
 };
 
 export default CommandPalette;
-

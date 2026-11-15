@@ -1,10 +1,9 @@
 import React, { useRef, useState } from 'react';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
-import { ArrowRight, Download, Sparkles, Send, CheckCircle2 } from 'lucide-react';
+import { ArrowRight, Download, Send, CheckCircle2, Linkedin, Phone } from 'lucide-react';
 import { personalData } from '../data/personal';
 import { projectsData } from '../data/projects';
 import { MagneticButton } from '../components/MagneticButton';
-import { TiltCard } from '../components/TiltCard';
 
 const nameLetters = "KISHORE".split("");
 
@@ -33,7 +32,7 @@ const charVariants = {
 
 export const HeroSection = () => {
   const [imageLoaded, setImageLoaded] = useState(false);
-  const [imgSrc, setImgSrc] = useState('/images/kishore-portrait.png');
+  const [imgSrc, setImgSrc] = useState('/images/kishore-portrait.jpg');
 
   // Mouse interactive parallax for the portrait stage
   const cardRef = useRef(null);
@@ -129,12 +128,12 @@ export const HeroSection = () => {
             </h1>
 
             <p className="hero-narrative-summary">
-              Bridging academic business administration with quantitative analytics. 
-              Designing executive Power BI dashboards, structured MySQL database architectures, 
+              Bridging strategic business administration with quantitative analytics. 
+              Designing executive Power BI dashboards, structured MySQL relational architectures, 
               and automated Python exploratory models to drive strategic business outcomes.
             </p>
 
-            {/* Premium CTA Buttons: Hire Me (Contact) & Download Resume */}
+            {/* Premium CTA Buttons: Hire Me (Contact), Download Resume, & Direct LinkedIn */}
             <div className="hero-cta-actions">
               <MagneticButton>
                 <button 
@@ -156,6 +155,19 @@ export const HeroSection = () => {
                 >
                   <Download size={15} />
                   <span>Download Resume</span>
+                </a>
+              </MagneticButton>
+
+              <MagneticButton>
+                <a 
+                  href={personalData.contact.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-linkedin-pill"
+                  aria-label="Connect on LinkedIn"
+                >
+                  <Linkedin size={15} />
+                  <span>LinkedIn</span>
                 </a>
               </MagneticButton>
 
@@ -185,7 +197,7 @@ export const HeroSection = () => {
               </div>
             </div>
 
-            {/* Quick Metrics Bar below text */}
+            {/* Quick Metrics Bar below text with exact updated college info */}
             <div className="hero-quick-stats">
               <div className="quick-stat-item">
                 <span className="quick-stat-num">04</span>
@@ -198,8 +210,13 @@ export const HeroSection = () => {
               </div>
               <div className="quick-stat-divider" />
               <div className="quick-stat-item">
+                <span className="quick-stat-num">MBA</span>
+                <span className="quick-stat-lbl">Sembodai R.V Arts</span>
+              </div>
+              <div className="quick-stat-divider" />
+              <div className="quick-stat-item">
                 <span className="quick-stat-num">BBA</span>
-                <span className="quick-stat-lbl">Grad &bull; MBA Pursuing</span>
+                <span className="quick-stat-lbl">66.67% &bull; Newton</span>
               </div>
             </div>
           </motion.div>
@@ -242,13 +259,13 @@ export const HeroSection = () => {
               >
                 <img 
                   src={imgSrc}
-                  alt="Kishore T — Aspiring Data Analyst Professional Portrait"
+                  alt="Kishore T — Data Analyst & Business Intelligence"
                   className={`portrait-actual-img ${imageLoaded ? 'loaded' : ''}`}
                   loading="eager"
                   onLoad={() => setImageLoaded(true)}
                   onError={() => {
-                    if (imgSrc !== '/kishore-portrait.jpg') {
-                      setImgSrc('/kishore-portrait.jpg');
+                    if (imgSrc !== '/kishore-portrait.png') {
+                      setImgSrc('/kishore-portrait.png');
                     }
                   }}
                 />
@@ -269,14 +286,14 @@ export const HeroSection = () => {
                 </div>
                 <div className="floating-badge-text">
                   <span className="floating-badge-name">Kishore T</span>
-                  <span className="floating-badge-role">Data Analyst &bull; BBA / MBA</span>
+                  <span className="floating-badge-role">Data Analyst &amp; BI &bull; MBA Candidate</span>
                 </div>
               </motion.div>
 
               {/* Technical Spec Meta Label at base */}
               <div className="portrait-spec-tag">
                 <span className="spec-dot" />
-                <span>ORIGINAL PORTRAIT &bull; HIGH RESOLUTION ARCHIVE</span>
+                <span>STUDIO PORTRAIT &bull; HIGH RESOLUTION ARCHIVE</span>
               </div>
             </div>
           </motion.div>

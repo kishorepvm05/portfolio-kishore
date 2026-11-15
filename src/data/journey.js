@@ -105,7 +105,7 @@ export const journeyMilestones = [
     icon: "Compass",
     period: "Current & Forward",
     summary: 
-      "Synthesizing ongoing MBA management coursework with continuous technical upskilling to become a well-rounded Data Analyst who bridges business strategy and data engineering.",
+      "Synthesizing ongoing MBA management coursework at Sembodai R.V Arts and Science College with continuous technical upskilling to become a well-rounded Data Analyst who bridges business strategy and data engineering.",
     highlights: [
       "Targeting entry-level Data Analyst, Business Analyst, and Junior BI roles",
       "Expanding portfolio with end-to-end case studies and open-source data projects",

@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Mail, Linkedin, Github, MapPin, Send, CheckCircle2 } from 'lucide-react';
+import { Mail, Linkedin, Github, MapPin, Send, CheckCircle2, ArrowUpRight, ArrowUp } from 'lucide-react';
 import { personalData } from '../data/personal';
+import { MagneticButton } from '../components/MagneticButton';
 
 export const ContactSection = () => {
   const [formData, setFormData] = useState({
@@ -30,11 +31,15 @@ export const ContactSection = () => {
     setSubmitted(true);
   };
 
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
     <section id="contact" className="section-wrapper" aria-label="Contact Kishore">
       <div className="container">
         
-        {/* Contact Editorial Box */}
+        {/* Contact Editorial Container */}
         <div className="contact-agency-container">
           <div className="contact-agency-split">
             
@@ -150,14 +155,16 @@ export const ContactSection = () => {
                     />
                   </div>
 
-                  <button 
-                    type="submit" 
-                    className="btn-charcoal-pill"
-                    style={{ width: '100%', marginTop: '8px' }}
-                  >
-                    <span>Send Message</span>
-                    <Send size={15} />
-                  </button>
+                  <MagneticButton style={{ width: '100%', marginTop: '8px' }}>
+                    <button 
+                      type="submit" 
+                      className="btn-charcoal-pill"
+                      style={{ width: '100%' }}
+                    >
+                      <span>Send Message</span>
+                      <Send size={15} />
+                    </button>
+                  </MagneticButton>
                 </form>
               )}
             </div>
@@ -165,18 +172,53 @@ export const ContactSection = () => {
           </div>
         </div>
 
-        {/* Agency Footer */}
-        <footer className="site-footer-agency">
+        {/* Memorable Advanced Footer with Oversized LET'S TALK */}
+        <footer className="advanced-agency-footer">
+          <div className="footer-marquee-row">
+            <h2 className="footer-oversized-cta">
+              LET&apos;S TALK<span style={{ color: 'var(--accent-orange)' }}>.</span>
+            </h2>
+            <MagneticButton>
+              <div 
+                onClick={scrollToTop} 
+                className="btn-back-to-top-editorial"
+                role="button"
+                tabIndex={0}
+              >
+                <span>Back to Top</span>
+                <ArrowUp size={16} />
+              </div>
+            </MagneticButton>
+          </div>
+
           <div className="footer-agency-inner">
-            <div>
-              &copy; {new Date().getFullYear()} Kishore T &bull; Handcrafted with 70% UI &bull; 20% Typography &bull; 10% Motion.
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+              <div>
+                &copy; {new Date().getFullYear()} Kishore T &bull; Handcrafted with 70% UI &bull; 20% Typography &bull; 10% Motion.
+              </div>
+              <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
+                Sir Issac Newton Arts &amp; Science College &bull; BBA 2026 &bull; MBA Candidate
+              </div>
             </div>
-            <div style={{ display: 'flex', gap: '20px' }}>
-              <a href={personalData.contact.portfolioRepo} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--text-charcoal)', textDecoration: 'underline' }}>
-                GitHub Repository
+
+            <div style={{ display: 'flex', gap: '24px', alignItems: 'center' }}>
+              <a 
+                href={personalData.contact.portfolioRepo} 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                style={{ color: 'var(--text-charcoal)', display: 'inline-flex', alignItems: 'center', gap: '4px', fontWeight: 600 }}
+              >
+                <span>GitHub Repository</span>
+                <ArrowUpRight size={14} />
               </a>
-              <a href={personalData.contact.linkedin} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--text-secondary)' }}>
-                LinkedIn
+              <a 
+                href={personalData.contact.linkedin} 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                style={{ color: 'var(--text-secondary)', display: 'inline-flex', alignItems: 'center', gap: '4px' }}
+              >
+                <span>LinkedIn Profile</span>
+                <ArrowUpRight size={14} />
               </a>
             </div>
           </div>

@@ -22,12 +22,12 @@ const marqueeVariants = {
 };
 
 const charVariants = {
-  hidden: { opacity: 0, y: 35 },
+  hidden: { opacity: 0, y: 38 },
   visible: {
     opacity: 1,
     y: 0,
     transition: {
-      duration: 0.65,
+      duration: 0.7,
       ease: [0.16, 1, 0.3, 1]
     }
   }
@@ -46,9 +46,16 @@ export const HeroSection = () => {
   return (
     <section id="hero" className="hero-agency-section" aria-label="Hero — Introduction">
       
+      {/* Subtle Architectural Grid Lines */}
+      <div className="hero-backdrop-lines" aria-hidden="true">
+        <div className="backdrop-line-v backdrop-line-v-1" />
+        <div className="backdrop-line-v backdrop-line-v-2" />
+        <div className="backdrop-line-h" />
+      </div>
+
       <div className="container" style={{ position: 'relative', zIndex: 3 }}>
         
-        {/* Oversized KISHORE Typography Header */}
+        {/* Oversized KISHORE Typography Header with Letter Stagger Reveal */}
         <motion.div 
           className="hero-marquee-agency"
           initial="hidden"
@@ -150,7 +157,7 @@ export const HeroSection = () => {
             <div className="sculpture-card-frame">
               <GeometricSculpture />
 
-              <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '12px 18px', borderTop: '1px solid var(--border-subtle)', background: 'rgba(255, 255, 255, 0.6)', backdropFilter: 'blur(8px)', display: 'flex', justifyContent: 'space-between', fontFamily: 'var(--font-mono)', fontSize: '0.68rem', color: 'var(--text-muted)', letterSpacing: '0.08em' }}>
+              <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '12px 18px', borderTop: '1px solid var(--border-subtle)', background: 'rgba(255, 255, 255, 0.65)', backdropFilter: 'blur(8px)', display: 'flex', justifyContent: 'space-between', fontFamily: 'var(--font-mono)', fontSize: '0.68rem', color: 'var(--text-muted)', letterSpacing: '0.08em' }}>
                 <span>FIG 01 &bull; KINETIC SCULPTURE</span>
                 <span style={{ color: 'var(--accent-orange)', fontWeight: 600 }}>ROTATIONAL CORE</span>
               </div>

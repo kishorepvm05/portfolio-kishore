@@ -356,6 +356,35 @@ html.dark {
   flex-direction: column;
   justify-content: center;
   position: relative;
+  overflow: hidden;
+}
+
+/* Subtle Architectural Grid Lines in Background */
+.hero-backdrop-lines {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.backdrop-line-v {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: var(--border-subtle);
+}
+
+.backdrop-line-v-1 { left: 33.333%; }
+.backdrop-line-v-2 { left: 66.666%; }
+
+.backdrop-line-h {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 48%;
+  height: 1px;
+  background: var(--border-subtle);
 }
 
 /* Large KISHORE Typography Header Row */
@@ -847,7 +876,7 @@ html.dark {
   font-weight: 600;
 }
 
-/* ── 11. CONTACT SECTION & FOOTER ─────────────────────────── */
+/* ── 11. CONTACT SECTION & ADVANCED FOOTER ────────────────── */
 .contact-agency-container {
   max-width: 960px;
   margin: 0 auto;
@@ -910,10 +939,50 @@ html.dark {
   background: #FFFFFF;
 }
 
-.site-footer-agency {
-  padding: var(--sp-12) 0 var(--sp-8) 0;
-  border-top: 1px solid var(--border-subtle);
+/* Advanced Agency Footer with Oversized LET'S TALK */
+.advanced-agency-footer {
   margin-top: var(--sp-20);
+  border-top: 2px solid var(--text-charcoal);
+  padding-top: var(--sp-12);
+}
+
+.footer-marquee-row {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: var(--sp-10);
+  flex-wrap: wrap;
+  gap: var(--sp-6);
+}
+
+.footer-oversized-cta {
+  font-family: var(--font-heading);
+  font-size: clamp(3.4rem, 10vw, 7.5rem);
+  font-weight: 900;
+  line-height: 0.9;
+  letter-spacing: -0.05em;
+  color: var(--text-charcoal);
+}
+
+.btn-back-to-top-editorial {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  border-radius: var(--radius-full);
+  background: var(--bg-surface);
+  border: 1px solid var(--border-medium);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--text-charcoal);
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.btn-back-to-top-editorial:hover {
+  background: var(--text-charcoal);
+  color: var(--bg-ivory);
+  border-color: var(--text-charcoal);
 }
 
 .footer-agency-inner {
@@ -924,6 +993,8 @@ html.dark {
   gap: var(--sp-4);
   font-size: 0.82rem;
   color: var(--text-muted);
+  border-top: 1px solid var(--border-subtle);
+  padding-top: var(--sp-6);
 }
 
 /* ── 12. RESPONSIVE BREAKPOINTS ───────────────────────────── */
@@ -977,6 +1048,11 @@ html.dark {
   .contact-agency-split {
     grid-template-columns: 1fr;
   }
+
+  .footer-marquee-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 }
 
 @media (max-width: 768px) {
@@ -994,5 +1070,9 @@ html.dark {
 
   .contact-agency-container {
     padding: var(--sp-6);
+  }
+
+  .backdrop-line-v-1, .backdrop-line-v-2 {
+    display: none;
   }
 }

@@ -9,13 +9,13 @@ export const LoadingScreen = ({ onComplete }) => {
       setProgress((prev) => {
         if (prev >= 100) {
           clearInterval(timer);
-          setTimeout(onComplete, 400);
+          setTimeout(onComplete, 450);
           return 100;
         }
-        const diff = Math.random() * 15 + 8;
+        const diff = Math.random() * 18 + 12;
         return Math.min(prev + Math.floor(diff), 100);
       });
-    }, 120);
+    }, 110);
 
     return () => clearInterval(timer);
   }, [onComplete]);
@@ -26,75 +26,77 @@ export const LoadingScreen = ({ onComplete }) => {
       initial={{ opacity: 1 }}
       exit={{ 
         y: '-100%',
-        transition: { duration: 0.85, ease: [0.76, 0, 0.24, 1] }
+        transition: { duration: 0.9, ease: [0.77, 0, 0.175, 1] }
       }}
       style={{
         position: 'fixed',
         inset: 0,
         zIndex: 10000,
-        backgroundColor: '#121110',
-        color: '#FAF8F5',
+        backgroundColor: '#191919',
+        color: '#F7F5EF',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'space-between',
-        padding: 'clamp(2rem, 5vw, 4rem)',
+        padding: 'clamp(2rem, 5vw, 4.5rem)',
         pointerEvents: 'all'
       }}
     >
       {/* Top Header */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.8rem', letterSpacing: '0.15em', color: '#857F77' }}>
-          KISHORE T &bull; PORTFOLIO
-        </span>
-        <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.8rem', color: '#F97316' }}>
-          &copy; 2026 ARCHIVE
+        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+          <span className="badge-agency-dot" />
+          <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.8rem', letterSpacing: '0.15em', color: '#B0ADA6' }}>
+            STUDIO KISHORE &bull; 2026 ARCHIVE
+          </span>
+        </div>
+        <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.8rem', color: '#D97752', letterSpacing: '0.1em' }}>
+          DATA ANALYTICS &bull; BI
         </span>
       </div>
 
       {/* Middle Animated Typography Display */}
-      <div style={{ maxWidth: '800px' }}>
-        <div style={{ overflow: 'hidden', marginBottom: '8px' }}>
+      <div style={{ maxWidth: '960px' }}>
+        <div style={{ overflow: 'hidden', marginBottom: '12px' }}>
           <motion.div
-            initial={{ y: 80 }}
+            initial={{ y: 90 }}
             animate={{ y: 0 }}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] }}
             style={{ 
               fontFamily: 'var(--font-heading)', 
-              fontSize: 'clamp(2.5rem, 7vw, 5.5rem)', 
+              fontSize: 'clamp(2.8rem, 8vw, 6.5rem)', 
               fontWeight: 900, 
-              lineHeight: 0.95,
-              letterSpacing: '-0.04em'
+              lineHeight: 0.92,
+              letterSpacing: '-0.05em'
             }}
           >
-            DATA ANALYST<span style={{ color: '#F97316' }}>.</span>
+            KISHORE<span style={{ color: '#D97752' }}>.</span>
           </motion.div>
         </div>
         <div style={{ overflow: 'hidden' }}>
           <motion.div
-            initial={{ y: 60 }}
+            initial={{ y: 50 }}
             animate={{ y: 0 }}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
+            transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1], delay: 0.12 }}
             style={{ 
               fontFamily: 'var(--font-serif)', 
               fontStyle: 'italic', 
-              fontSize: 'clamp(1.5rem, 3.5vw, 2.5rem)', 
-              color: '#A8A29E' 
+              fontSize: 'clamp(1.4rem, 3.2vw, 2.4rem)', 
+              color: '#B0ADA6' 
             }}
           >
-            Turning information into strategic vision.
+            Crafting clarity from complex datasets.
           </motion.div>
         </div>
       </div>
 
       {/* Bottom Progress Counter */}
-      <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '20px' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-          <span className="editorial-tag-dot" />
-          <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.75rem', letterSpacing: '0.08em', color: '#857F77', textTransform: 'uppercase' }}>
-            Initializing kinetic geometry &amp; visual models
+      <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', borderTop: '1px solid rgba(247,245,239,0.12)', paddingTop: '22px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+          <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.78rem', letterSpacing: '0.08em', color: '#7A7873', textTransform: 'uppercase' }}>
+            Initializing kinetic geometry &bull; Star schema pipelines &bull; 60 FPS
           </span>
         </div>
-        <div style={{ fontFamily: 'var(--font-mono)', fontSize: 'clamp(2rem, 4vw, 3.5rem)', fontWeight: 700, color: '#FAF8F5' }}>
+        <div style={{ fontFamily: 'var(--font-mono)', fontSize: 'clamp(2.4rem, 5vw, 4rem)', fontWeight: 700, color: '#F7F5EF', lineHeight: 1 }}>
           {progress.toString().padStart(3, '0')}%
         </div>
       </div>
@@ -103,4 +105,3 @@ export const LoadingScreen = ({ onComplete }) => {
 };
 
 export default LoadingScreen;
-

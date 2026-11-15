@@ -2,15 +2,15 @@ import React, { useRef } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 
-// Rotating abstract geodesic core
+// Central Geometric Sculpture
 function CoreSculpture() {
   const meshRef = useRef();
 
   useFrame((state, delta) => {
     if (meshRef.current) {
-      meshRef.current.rotation.x += delta * 0.25;
-      meshRef.current.rotation.y += delta * 0.35;
-      meshRef.current.rotation.z = Math.sin(state.clock.elapsedTime * 0.5) * 0.2;
+      meshRef.current.rotation.x += delta * 0.22;
+      meshRef.current.rotation.y += delta * 0.28;
+      meshRef.current.rotation.z = Math.sin(state.clock.elapsedTime * 0.4) * 0.15;
     }
   });
 
@@ -18,42 +18,42 @@ function CoreSculpture() {
     <mesh ref={meshRef} scale={1.85}>
       <icosahedronGeometry args={[1, 1]} />
       <meshStandardMaterial
-        color="#1E1E1E"
-        roughness={0.2}
-        metalness={0.85}
+        color="#191919"
+        roughness={0.25}
+        metalness={0.8}
         wireframe={false}
       />
     </mesh>
   );
 }
 
-// Outer geometric wireframe cage with subtle orange accent
+// Outer Muted Orange Geodesic Wireframe
 function WireframeCage() {
   const cageRef = useRef();
 
   useFrame((state, delta) => {
     if (cageRef.current) {
-      cageRef.current.rotation.x -= delta * 0.18;
-      cageRef.current.rotation.y += delta * 0.22;
+      cageRef.current.rotation.x -= delta * 0.15;
+      cageRef.current.rotation.y += delta * 0.18;
     }
   });
 
   return (
-    <mesh ref={cageRef} scale={2.4}>
+    <mesh ref={cageRef} scale={2.45}>
       <dodecahedronGeometry args={[1, 0]} />
       <meshStandardMaterial
-        color="#F97316"
+        color="#D97752"
         wireframe
-        emissive="#EA580C"
-        emissiveIntensity={0.4}
-        roughness={0.1}
-        metalness={0.9}
+        emissive="#D97752"
+        emissiveIntensity={0.35}
+        roughness={0.15}
+        metalness={0.85}
       />
     </mesh>
   );
 }
 
-// Orbital delicate rings
+// Subtle Orbital Rings
 function OrbitalRing({ radius, speed, tilt, color }) {
   const ringRef = useRef();
 
@@ -71,7 +71,7 @@ function OrbitalRing({ radius, speed, tilt, color }) {
       <meshStandardMaterial
         color={color}
         emissive={color}
-        emissiveIntensity={0.6}
+        emissiveIntensity={0.4}
         roughness={0.2}
         metalness={0.8}
       />
@@ -79,13 +79,13 @@ function OrbitalRing({ radius, speed, tilt, color }) {
   );
 }
 
-// Floating minimal geometric satellites
+// Floating Geometric Node Satellites
 function FloatingNodes() {
   const nodes = [
-    { pos: [-2.8, 1.8, 0.5], size: 0.2, color: '#F97316' },
-    { pos: [2.9, -1.6, -0.8], size: 0.25, color: '#262626' },
-    { pos: [2.2, 2.2, -1.2], size: 0.18, color: '#D97706' },
-    { pos: [-2.4, -2.1, 1.0], size: 0.22, color: '#404040' },
+    { pos: [-2.9, 1.9, 0.5], size: 0.2, color: '#D97752' },
+    { pos: [3.1, -1.8, -0.8], size: 0.24, color: '#191919' },
+    { pos: [2.3, 2.3, -1.2], size: 0.18, color: '#EAE6DC' },
+    { pos: [-2.5, -2.2, 1.0], size: 0.22, color: '#4A4A48' },
   ];
 
   return (
@@ -97,7 +97,7 @@ function FloatingNodes() {
             color={node.color}
             wireframe
             emissive={node.color}
-            emissiveIntensity={0.3}
+            emissiveIntensity={0.25}
           />
         </mesh>
       ))}
@@ -111,31 +111,29 @@ export const GeometricSculpture = () => {
       style={{
         width: '100%',
         height: '100%',
-        minHeight: '440px',
+        minHeight: '450px',
         position: 'relative',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
         cursor: 'grab'
       }}
-      aria-label="Interactive 3D Abstract Geometric Sculpture"
+      aria-label="Interactive 3D Abstract Geometric Kinetic Sculpture"
     >
       <Canvas
         camera={{ position: [0, 0, 7.5], fov: 45 }}
         gl={{ alpha: true, antialias: true, powerPreference: 'high-performance' }}
         dpr={[1, 1.5]}
       >
-        <ambientLight intensity={0.7} />
-        {/* Warm key light */}
-        <directionalLight position={[6, 8, 5]} intensity={1.5} color="#FFFBF5" />
-        {/* Subtle orange accent rim light */}
-        <pointLight position={[-6, -4, -3]} intensity={2.0} color="#F97316" />
-        <pointLight position={[4, -5, 4]} intensity={1.2} color="#D97706" />
+        <ambientLight intensity={0.75} />
+        <directionalLight position={[6, 8, 5]} intensity={1.4} color="#FFFBF5" />
+        <pointLight position={[-6, -4, -3]} intensity={1.8} color="#D97752" />
+        <pointLight position={[4, -5, 4]} intensity={1.1} color="#EAE6DC" />
 
         <CoreSculpture />
         <WireframeCage />
-        <OrbitalRing radius={3.1} speed={0.4} tilt={0.4} color="#F97316" />
-        <OrbitalRing radius={3.5} speed={-0.3} tilt={-0.6} color="#78716C" />
+        <OrbitalRing radius={3.15} speed={0.35} tilt={0.4} color="#D97752" />
+        <OrbitalRing radius={3.55} speed={-0.28} tilt={-0.6} color="#7A7873" />
         <FloatingNodes />
       </Canvas>
     </div>
@@ -143,4 +141,3 @@ export const GeometricSculpture = () => {
 };
 
 export default GeometricSculpture;
-

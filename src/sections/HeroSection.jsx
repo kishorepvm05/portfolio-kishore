@@ -1,10 +1,8 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { ArrowRight, Download, Sparkles } from 'lucide-react';
+import React, { useRef, useState } from 'react';
+import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
+import { ArrowRight, Download, Sparkles, Send, CheckCircle2 } from 'lucide-react';
 import { personalData } from '../data/personal';
 import { projectsData } from '../data/projects';
-import { skillsData } from '../data/skills';
-import { GeometricSculpture } from '../components/GeometricSculpture';
 import { MagneticButton } from '../components/MagneticButton';
 import { TiltCard } from '../components/TiltCard';
 
@@ -15,25 +13,52 @@ const marqueeVariants = {
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.05,
-      delayChildren: 0.15
+      staggerChildren: 0.04,
+      delayChildren: 0.1
     }
   }
 };
 
 const charVariants = {
-  hidden: { opacity: 0, y: 38 },
+  hidden: { opacity: 0, y: 32 },
   visible: {
     opacity: 1,
     y: 0,
     transition: {
-      duration: 0.7,
+      duration: 0.65,
       ease: [0.16, 1, 0.3, 1]
     }
   }
 };
 
 export const HeroSection = () => {
+  const [imageLoaded, setImageLoaded] = useState(false);
+  const [imgSrc, setImgSrc] = useState('/images/kishore-portrait.png');
+
+  // Mouse interactive parallax for the portrait stage
+  const cardRef = useRef(null);
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+
+  const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [6, -6]), { stiffness: 180, damping: 20 });
+  const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-6, 6]), { stiffness: 180, damping: 20 });
+  const parallaxX = useSpring(useTransform(mouseX, [-0.5, 0.5], [-12, 12]), { stiffness: 180, damping: 20 });
+  const parallaxY = useSpring(useTransform(mouseY, [-0.5, 0.5], [-12, 12]), { stiffness: 180, damping: 20 });
+
+  const handleMouseMove = (e) => {
+    if (!cardRef.current) return;
+    const rect = cardRef.current.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width - 0.5;
+    const y = (e.clientY - rect.top) / rect.height - 0.5;
+    mouseX.set(x);
+    mouseY.set(y);
+  };
+
+  const handleMouseLeave = () => {
+    mouseX.set(0);
+    mouseY.set(0);
+  };
+
   const scrollTo = (href) => {
     const el = document.querySelector(href);
     if (el) {
@@ -44,25 +69,25 @@ export const HeroSection = () => {
   };
 
   return (
-    <section id="hero" className="hero-agency-section" aria-label="Hero — Introduction">
+    <section id="hero" className="hero-dark-editorial" aria-label="Hero — Introduction">
       
-      {/* Subtle Architectural Grid Lines */}
-      <div className="hero-backdrop-lines" aria-hidden="true">
-        <div className="backdrop-line-v backdrop-line-v-1" />
-        <div className="backdrop-line-v backdrop-line-v-2" />
-        <div className="backdrop-line-h" />
+      {/* Ambient Lighting & Architectural Grid */}
+      <div className="hero-ambient-lights" aria-hidden="true">
+        <div className="ambient-glow ambient-glow-orange" />
+        <div className="ambient-glow ambient-glow-dark" />
+        <div className="hero-grid-overlay" />
       </div>
 
       <div className="container" style={{ position: 'relative', zIndex: 3 }}>
         
-        {/* Oversized KISHORE Typography Header with Letter Stagger Reveal */}
+        {/* Top Header Row: KISHORE Wordmark & Live Status Capsule */}
         <motion.div 
-          className="hero-marquee-agency"
+          className="hero-header-bar"
           initial="hidden"
           animate="visible"
           variants={marqueeVariants}
         >
-          <div className="hero-large-name" style={{ display: 'flex', overflow: 'hidden' }}>
+          <div className="hero-wordmark-title" style={{ display: 'flex', overflow: 'hidden' }}>
             {nameLetters.map((char, index) => (
               <motion.span key={index} variants={charVariants} style={{ display: 'inline-block' }}>
                 {char}
@@ -74,135 +99,186 @@ export const HeroSection = () => {
           </div>
 
           <motion.div 
-            className="hero-badge-capsule"
+            className="hero-availability-capsule"
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.7, delay: 0.4 }}
+            transition={{ duration: 0.6, delay: 0.35 }}
           >
-            <span className="badge-agency-dot" />
-            <span>PORTFOLIO / 2026 ARCHIVE</span>
+            <span className="live-status-dot" />
+            <span>AVAILABLE FOR HIRE &bull; 2026 ARCHIVE</span>
           </motion.div>
         </motion.div>
 
-        {/* 3-Column Asymmetric Content Grid */}
-        <div className="hero-asymmetric-grid">
+        {/* 2-Column Balanced Hero Composition: Left Intro & Actions, Right Large B&W Portrait */}
+        <div className="hero-split-grid">
           
-          {/* Left Narrative Column */}
+          {/* LEFT COLUMN: Narrative, Role, CTA Buttons & Stack */}
           <motion.div 
-            className="hero-narrative-col"
-            initial={{ opacity: 0, x: -30 }}
+            className="hero-intro-column"
+            initial={{ opacity: 0, x: -35 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.25 }}
+            transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
           >
-            <div className="hero-role-pill">
-              <span className="badge-agency-dot" />
+            <div className="hero-role-badge-tag">
+              <span className="role-tag-bullet" />
               <span>{personalData.role}</span>
             </div>
 
-            <h1 className="hero-statement-title">
-              Crafting clarity from <em>complex</em> datasets.
+            <h1 className="hero-headline-primary">
+              Transforming complex data into <em>actionable</em> intelligence.
             </h1>
 
-            <p className="hero-statement-body">
-              Bridging strategic business administration with quantitative analytics. 
-              Transforming raw transactional records into interactive Power BI dashboards, 
-              structured relational SQL queries, and predictive decision frameworks.
+            <p className="hero-narrative-summary">
+              Bridging academic business administration with quantitative analytics. 
+              Designing executive Power BI dashboards, structured MySQL database architectures, 
+              and automated Python exploratory models to drive strategic business outcomes.
             </p>
 
-            <div className="hero-actions-group">
+            {/* Premium CTA Buttons: Hire Me (Contact) & Download Resume */}
+            <div className="hero-cta-actions">
               <MagneticButton>
-                <div 
-                  onClick={() => scrollTo('#projects')}
-                  className="btn-charcoal-pill"
-                  role="button"
-                  tabIndex={0}
+                <button 
+                  onClick={() => scrollTo('#contact')}
+                  className="btn-orange-glow-hire"
+                  aria-label="Hire Me — Contact Kishore"
                 >
-                  <span>Explore Projects</span>
-                  <ArrowRight size={16} />
-                </div>
+                  <Send size={16} />
+                  <span>Hire Me</span>
+                </button>
               </MagneticButton>
 
               <MagneticButton>
                 <a 
                   href={personalData.resume.downloadUrl}
                   download={personalData.resume.fileName}
-                  className="btn-beige-pill"
-                  aria-label="Download Resume"
+                  className="btn-charcoal-outline-resume"
+                  aria-label="Download Kishore Resume"
                 >
                   <Download size={15} />
-                  <span>Resume</span>
+                  <span>Download Resume</span>
                 </a>
+              </MagneticButton>
+
+              <MagneticButton>
+                <button 
+                  onClick={() => scrollTo('#projects')}
+                  className="btn-ghost-projects"
+                  aria-label="Explore Projects"
+                >
+                  <span>View Projects</span>
+                  <ArrowRight size={15} />
+                </button>
               </MagneticButton>
             </div>
 
-            <div className="hero-stack-ticker">
-              <span className="ticker-orange-tag">STACK:</span>
-              <span>Microsoft Excel</span>
-              <span style={{ color: 'var(--border-medium)' }}>&bull;</span>
-              <span>Power BI</span>
-              <span style={{ color: 'var(--border-medium)' }}>&bull;</span>
-              <span>MySQL</span>
-              <span style={{ color: 'var(--border-medium)' }}>&bull;</span>
-              <span>Python</span>
+            {/* Core Stack Pill Strip */}
+            <div className="hero-tech-strip">
+              <span className="tech-strip-label">CORE STACK:</span>
+              <div className="tech-strip-pills">
+                <span className="tech-pill">Microsoft Excel</span>
+                <span className="tech-separator">&bull;</span>
+                <span className="tech-pill">Power BI</span>
+                <span className="tech-separator">&bull;</span>
+                <span className="tech-pill">MySQL</span>
+                <span className="tech-separator">&bull;</span>
+                <span className="tech-pill">Python</span>
+              </div>
+            </div>
+
+            {/* Quick Metrics Bar below text */}
+            <div className="hero-quick-stats">
+              <div className="quick-stat-item">
+                <span className="quick-stat-num">04</span>
+                <span className="quick-stat-lbl">Core Toolsets</span>
+              </div>
+              <div className="quick-stat-divider" />
+              <div className="quick-stat-item">
+                <span className="quick-stat-num">0{projectsData.length}</span>
+                <span className="quick-stat-lbl">Verified Projects</span>
+              </div>
+              <div className="quick-stat-divider" />
+              <div className="quick-stat-item">
+                <span className="quick-stat-num">BBA</span>
+                <span className="quick-stat-lbl">Grad &bull; MBA Pursuing</span>
+              </div>
             </div>
           </motion.div>
 
-          {/* Center Abstract 3D Geometric Stage */}
+          {/* RIGHT COLUMN: Large Profile Portrait with Subtle Dark Circle, Soft Orange Halo & B&W Treatment */}
           <motion.div 
-            className="hero-sculpture-col"
-            initial={{ opacity: 0, scale: 0.92 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: 0.35 }}
+            className="hero-portrait-column"
+            initial={{ opacity: 0, scale: 0.94, y: 25 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            transition={{ duration: 0.95, ease: [0.16, 1, 0.3, 1], delay: 0.3 }}
           >
-            <div className="sculpture-card-frame">
-              <GeometricSculpture />
+            <div 
+              className="portrait-interactive-stage"
+              ref={cardRef}
+              onMouseMove={handleMouseMove}
+              onMouseLeave={handleMouseLeave}
+            >
+              {/* Soft Orange Lighting Accent Halo behind circular backdrop */}
+              <div className="portrait-orange-accent-halo" aria-hidden="true" />
 
-              <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '12px 18px', borderTop: '1px solid var(--border-subtle)', background: 'rgba(255, 255, 255, 0.65)', backdropFilter: 'blur(8px)', display: 'flex', justifyContent: 'space-between', fontFamily: 'var(--font-mono)', fontSize: '0.68rem', color: 'var(--text-muted)', letterSpacing: '0.08em' }}>
-                <span>FIG 01 &bull; KINETIC SCULPTURE</span>
-                <span style={{ color: 'var(--accent-orange)', fontWeight: 600 }}>ROTATIONAL CORE</span>
+              {/* Subtle Dark Circular / Rounded Backdrop */}
+              <motion.div 
+                className="portrait-backdrop-circle"
+                style={{
+                  rotateX,
+                  rotateY,
+                }}
+              >
+                <div className="backdrop-inner-glow" />
+                <div className="backdrop-grid-rings" />
+              </motion.div>
+
+              {/* Full Upper-Body Portrait Image */}
+              <motion.div 
+                className="portrait-image-wrapper"
+                style={{
+                  x: parallaxX,
+                  y: parallaxY,
+                }}
+              >
+                <img 
+                  src={imgSrc}
+                  alt="Kishore T — Aspiring Data Analyst Professional Portrait"
+                  className={`portrait-actual-img ${imageLoaded ? 'loaded' : ''}`}
+                  loading="eager"
+                  onLoad={() => setImageLoaded(true)}
+                  onError={() => {
+                    if (imgSrc !== '/kishore-portrait.jpg') {
+                      setImgSrc('/kishore-portrait.jpg');
+                    }
+                  }}
+                />
+
+                {/* Subtle Orange Rim Lighting Gradient */}
+                <div className="portrait-orange-rim-overlay" aria-hidden="true" />
+              </motion.div>
+
+              {/* Verified Identity Badge Floating Card */}
+              <motion.div 
+                className="portrait-floating-badge"
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, delay: 0.6 }}
+              >
+                <div className="floating-badge-icon">
+                  <CheckCircle2 size={16} />
+                </div>
+                <div className="floating-badge-text">
+                  <span className="floating-badge-name">Kishore T</span>
+                  <span className="floating-badge-role">Data Analyst &bull; BBA / MBA</span>
+                </div>
+              </motion.div>
+
+              {/* Technical Spec Meta Label at base */}
+              <div className="portrait-spec-tag">
+                <span className="spec-dot" />
+                <span>ORIGINAL PORTRAIT &bull; HIGH RESOLUTION ARCHIVE</span>
               </div>
             </div>
-          </motion.div>
-
-          {/* Right Statistics Column */}
-          <motion.div 
-            className="hero-metrics-col"
-            initial={{ opacity: 0, x: 30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.45 }}
-          >
-            <TiltCard className="agency-stat-card">
-              <div className="stat-card-header">
-                <div className="stat-number-display">04</div>
-                <div className="stat-domain-pill">DOMAINS</div>
-              </div>
-              <div className="stat-label-text">Analytics Stack</div>
-              <div className="stat-body-detail">
-                Advanced Excel, Power BI DAX, MySQL queries &amp; Python scripts.
-              </div>
-            </TiltCard>
-
-            <TiltCard className="agency-stat-card">
-              <div className="stat-card-header">
-                <div className="stat-number-display">0{projectsData.length}</div>
-                <div className="stat-domain-pill">MODELS</div>
-              </div>
-              <div className="stat-label-text">Verified Case Studies</div>
-              <div className="stat-body-detail">
-                Retail e-commerce joins, executive BI dashboards, and summary models.
-              </div>
-            </TiltCard>
-
-            <TiltCard className="agency-stat-card">
-              <div className="stat-card-header">
-                <div className="stat-number-display">2026</div>
-                <div className="stat-domain-pill">ACADEMIC</div>
-              </div>
-              <div className="stat-label-text">Education Baseline</div>
-              <div className="stat-body-detail">
-                BBA Graduate (66.67%) &bull; Sir Issac Newton Arts &amp; Science &bull; Pursuing MBA.
-              </div>
-            </TiltCard>
           </motion.div>
 
         </div>
